@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_shop_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreateAccountActivity" android:parentActivityName=".StoreLoginActivity"/>
+        <activity
+            android:name=".StoreProductsActivity"
+            android:parentActivityName=".StoreLoginActivity"/>
+        <activity
+            android:name=".CreateAccountActivity"
+            android:parentActivityName=".StoreLoginActivity" />
         <activity
             android:name=".StoreLoginActivity"
             android:parentActivityName=".MainActivity" />
