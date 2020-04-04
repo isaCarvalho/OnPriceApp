@@ -14,4 +14,16 @@
 
     <string name="main_menu_help">Ajuda</string>
 
+    <string name="userName">Nome de Usuário</string>
+    <string name="password">Senha</string>
+    <string name="cnpj">CNPJ</string>
+    <string name="telephone">Telefone</string>
+    <string name="street">Rua</string>
+    <string name="number">N°</string>
+    <string name="neighborhood">Bairro</string>
+    <string name="city">Cidade</string>
+    <string name="time">Horário de Funcionamento</string>
+    <string name="loginButton">Entrar</string>
+    <string name="createAccount">Criar Conta</string>
+
 </resources>
