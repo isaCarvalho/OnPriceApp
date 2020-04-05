@@ -202,4 +202,11 @@ class DatabaseController(private val context : Context)
                 "WHERE ${BaseColumns._ID} = $id"
         )
     }
+
+    fun deleteStore(id : Int)
+    {
+        dbHelper.writableDatabase.execSQL("DELETE FROM  ${DatabaseCreate.FeedReaderContract.FeedEntry.TABLE_STORE} " +
+                "WHERE ${BaseColumns._ID} = $id"
+        )
+    }
 }

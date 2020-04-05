@@ -20,19 +20,10 @@ class CreateAccountActivity : AppCompatActivity() {
 
         createAccountButton = findViewById(R.id.createButton)
         createAccountButton!!.setOnClickListener {
-            if (array!!.isEmpty())
+            if (array == null || array!!.isEmpty())
                 this.putData(false)
             else
             {
-                findViewById<EditText>(R.id.nameField).setText(array[1])
-                findViewById<EditText>(R.id.passwordField).setText(array[2])
-                findViewById<EditText>(R.id.cnpjField).setText(array[3])
-                findViewById<EditText>(R.id.streetField).setText(array[4])
-                findViewById<EditText>(R.id.numberField).setText(array[5])
-                findViewById<EditText>(R.id.bairroField).setText(array[6])
-                findViewById<EditText>(R.id.cityField).setText(array[7])
-                findViewById<EditText>(R.id.timeField).setText(array[8])
-
                 this.putData(true, array[0].toInt())
             }
         }

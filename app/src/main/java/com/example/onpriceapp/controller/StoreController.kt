@@ -48,4 +48,16 @@ class StoreController(context: Context) {
     {
         return dbController.getStore(id)
     }
+
+    fun delete(id: Int) : Boolean
+    {
+        return try {
+            dbController.deleteStore(id)
+            true
+        }
+        catch (e : Exception)
+        {
+            false
+        }
+    }
 }

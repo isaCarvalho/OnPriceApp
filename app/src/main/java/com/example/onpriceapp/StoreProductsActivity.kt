@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.example.onpriceapp.controller.StoreController
 import com.example.onpriceapp.model.Store
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -49,6 +50,18 @@ class StoreProductsActivity : AppCompatActivity() {
                 }
 
                 startActivity(intent)
+                true
+            }
+
+            R.id.delete ->
+            {
+                if (StoreController(this).delete(id)) {
+                    Toast.makeText(this, "Conta deletada com sucessso!", Toast.LENGTH_SHORT).show()
+
+                    startActivity(Intent(this, StoreLoginActivity::class.java))
+                }
+                else
+                    Toast.makeText(this, "Não foi possível deletar a conta!", Toast.LENGTH_SHORT).show()
                 true
             }
 
