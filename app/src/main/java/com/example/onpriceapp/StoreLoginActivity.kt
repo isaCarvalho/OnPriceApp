@@ -20,7 +20,9 @@ class StoreLoginActivity : AppCompatActivity() {
 
         createAccountButton = findViewById(R.id.createAccountButton)
         createAccountButton!!.setOnClickListener {
-            val intent = Intent(this, CreateAccountActivity::class.java)
+            val intent = Intent(this, CreateAccountActivity::class.java).apply {
+                putExtra(EXTRA, arrayOf<String>())
+            }
             startActivity(intent)
         }
 

@@ -2,6 +2,7 @@ package com.example.onpriceapp.controller
 
 import android.content.Context
 import com.example.onpriceapp.database.DatabaseController
+import com.example.onpriceapp.model.Product
 import java.lang.Exception
 
 class ProductController(context : Context)
@@ -19,5 +20,10 @@ class ProductController(context : Context)
         {
             false
         }
+    }
+
+    fun list() : List<Product>
+    {
+        return dbController.listProducts()
     }
 }

@@ -63,16 +63,16 @@
                     <ImageView
                         android:id="@+id/storeLine"
                         android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_height="1dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:background="#e5e5e5"
+                        android:background="#909090"
                         android:contentDescription="@string/store"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/storeTxtField"
-                        app:srcCompat="@android:drawable/divider_horizontal_textfield" />
+                        app:srcCompat="?attr/editTextBackground" />
 
                     <TextView
                         android:id="@+id/storeDescriptionTxt"
@@ -140,11 +140,11 @@
                     <ImageView
                         android:id="@+id/productLine"
                         android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_height="1dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:background="#e5e5e5"
+                        android:background="#909090"
                         android:contentDescription="@string/search_product"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

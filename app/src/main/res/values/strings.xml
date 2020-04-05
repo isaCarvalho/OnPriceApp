@@ -73,5 +73,6 @@
     </array>
 
     <string name="save">Salvar</string>
+    <string name="edit">Editar</string>
 
 </resources>

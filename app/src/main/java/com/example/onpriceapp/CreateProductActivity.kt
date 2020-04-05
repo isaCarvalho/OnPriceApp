@@ -1,7 +1,9 @@
 package com.example.onpriceapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.onpriceapp.controller.ProductController
@@ -9,12 +11,18 @@ import com.example.onpriceapp.controller.ProductController
 class CreateProductActivity : AppCompatActivity() {
 
     var id : Int = 0
+    var saveButton : Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_product)
 
         id = intent.getIntExtra(EXTRA, -1)
+
+        saveButton = findViewById(R.id.saveButton)
+        saveButton!!.setOnClickListener {
+            insert(id)
+        }
     }
 
     private fun insert(store_id: Int)
@@ -30,6 +38,8 @@ class CreateProductActivity : AppCompatActivity() {
                 Toast.makeText(this, "Produto criado com sucesso!", Toast.LENGTH_SHORT).show()
             else
                 Toast.makeText(this, "Não foi possível criar o produto!", Toast.LENGTH_SHORT).show()
+
+            startActivity(Intent(this, StoreProductsActivity::class.java))
         }
         else
             Toast.makeText(this, "Todos os campos são obrigatórios!", Toast.LENGTH_SHORT).show()
