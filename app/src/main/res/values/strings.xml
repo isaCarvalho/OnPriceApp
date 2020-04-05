@@ -57,4 +57,21 @@
         <item>TO</item>
     </array>
 
+    <string name="product_name">Nome do Produto</string>
+    <string name="price">R$ 0.00</string>
+    <string name="qt">Quantidade</string>
+    <string name="unity">Unidade</string>
+
+    <array name="category">
+        <item>Laticíneos</item>
+        <item>Higiene Pessoal</item>
+        <item>Limpeza</item>
+        <item>Legumes</item>
+        <item>Verduras</item>
+        <item>Frutas</item>
+        <item>Carnes</item>
+    </array>
+
+    <string name="save">Salvar</string>
+
 </resources>

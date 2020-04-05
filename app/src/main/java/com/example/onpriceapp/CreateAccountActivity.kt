@@ -18,25 +18,43 @@ class CreateAccountActivity : AppCompatActivity() {
 
         createAccountButton = findViewById(R.id.createButton)
         createAccountButton!!.setOnClickListener {
+            this.insert()
+        }
 
-            val name = findViewById<EditText>(R.id.nameField).text.toString()
-            val password = findViewById<EditText>(R.id.passwordField).text.toString()
-            val cnpj = findViewById<EditText>(R.id.cnpjField).text.toString()
-            val street = findViewById<EditText>(R.id.streetField).text.toString()
-            val number = findViewById<EditText>(R.id.numberField).text.toString()
-            val bairro = findViewById<EditText>(R.id.bairroField).text.toString()
-            val city = findViewById<EditText>(R.id.cityField).text.toString()
-            val time = findViewById<EditText>(R.id.timeField).text.toString()
+    }
 
-            if (StoreController(this).createAccount(name, password, cnpj, street, number, bairro,
-            city, "RJ", time)) {
+    private fun insert()
+    {
+        val name = findViewById<EditText>(R.id.nameField).text.toString()
+        val password = findViewById<EditText>(R.id.passwordField).text.toString()
+        val cnpj = findViewById<EditText>(R.id.cnpjField).text.toString()
+        val street = findViewById<EditText>(R.id.streetField).text.toString()
+        val number = findViewById<EditText>(R.id.numberField).text.toString()
+        val bairro = findViewById<EditText>(R.id.bairroField).text.toString()
+        val city = findViewById<EditText>(R.id.cityField).text.toString()
+        val time = findViewById<EditText>(R.id.timeField).text.toString()
+
+        if (validate(name) && validate(password) && validate(cnpj) && validate(street) && validate(number)
+            && validate(bairro) && validate(city) && validate(time)) {
+
+            if (StoreController(this).createAccount(
+                    name, password, cnpj, street, number, bairro,
+                    city, "RJ", time
+                )
+            ) {
                 Toast.makeText(this, "Conta criada com sucesso!", Toast.LENGTH_SHORT).show()
 
                 val intent = Intent(this, StoreLoginActivity::class.java)
                 startActivity(intent)
-            }
-            else
+            } else
                 Toast.makeText(this, "Não foi possível criar a conta!", Toast.LENGTH_SHORT).show()
         }
+        else
+            Toast.makeText(this, "Todos os campos são obrigatórios!", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun validate(field : String) : Boolean
+    {
+        return !field.isEmpty()
     }
 }

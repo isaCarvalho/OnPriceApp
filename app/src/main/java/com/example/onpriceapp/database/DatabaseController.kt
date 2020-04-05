@@ -132,11 +132,11 @@ class DatabaseController(private val context : Context)
         return items
     }
 
-    fun login(name : String, password : String) : Boolean
+    fun login(name : String, password : String) : Int
     {
         val items = dbHelper.readableDatabase.query(
             DatabaseCreate.FeedReaderContract.FeedEntry.TABLE_STORE,
-            arrayOf("name", "password"),
+            arrayOf("${BaseColumns._ID}", "name", "password"),
             "name = ? AND password = ?",
             arrayOf(name, password),
             null,
@@ -144,11 +144,12 @@ class DatabaseController(private val context : Context)
             null
         )
 
+        var id = -1
         with(items) {
-            if (count != 0)
-                return true
+            while (this.moveToNext())
+                id = getInt(getColumnIndexOrThrow(BaseColumns._ID))
         }
 
-        return false
+        return id
     }
 }

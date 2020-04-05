@@ -35,15 +35,15 @@ class DatabaseCreate (context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
     override fun onCreate(db: SQLiteDatabase?) {
         val createStore = "CREATE TABLE ${FeedReaderContract.FeedEntry.TABLE_STORE} (" +
                 "${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "${FeedReaderContract.FeedEntry.NAME_STORE} TEXT, " +
-                "${FeedReaderContract.FeedEntry.PASSOWORD_STORE} TEXT, " +
-                "${FeedReaderContract.FeedEntry.CNPJ_STORE} TEXT, " +
-                "${FeedReaderContract.FeedEntry.STREET_STORE} TEXT, " +
-                "${FeedReaderContract.FeedEntry.NUMBER_STORE} TEXT, " +
-                "${FeedReaderContract.FeedEntry.BAIRRO_STORE} TEXT, " +
-                "${FeedReaderContract.FeedEntry.CITY_STORE} TEXT, " +
-                "${FeedReaderContract.FeedEntry.UF_STORE} TEXT, " +
-                "${FeedReaderContract.FeedEntry.TIME} TEXT )"
+                "${FeedReaderContract.FeedEntry.NAME_STORE} TEXT NOT NULL, " +
+                "${FeedReaderContract.FeedEntry.PASSOWORD_STORE} TEXT NOT NULL, " +
+                "${FeedReaderContract.FeedEntry.CNPJ_STORE} TEXT NOT NULL, " +
+                "${FeedReaderContract.FeedEntry.STREET_STORE} TEXT NOT NULL, " +
+                "${FeedReaderContract.FeedEntry.NUMBER_STORE} TEXT NOT NULL, " +
+                "${FeedReaderContract.FeedEntry.BAIRRO_STORE} TEXT NOT NULL, " +
+                "${FeedReaderContract.FeedEntry.CITY_STORE} TEXT NOT NULL, " +
+                "${FeedReaderContract.FeedEntry.UF_STORE} TEXT NOT NULL, " +
+                "${FeedReaderContract.FeedEntry.TIME} TEXT NOT NULL )"
 
         db!!.execSQL(createStore)
 

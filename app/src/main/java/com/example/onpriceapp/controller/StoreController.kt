@@ -8,7 +8,7 @@ class StoreController(context: Context) {
 
     val dbController = DatabaseController(context)
 
-    fun login(name : String, password: String) : Boolean
+    fun login(name : String, password: String) : Int
     {
         return dbController.login(name, password)
     }
