@@ -18,14 +18,6 @@ class StoreLoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_store_login)
 
-        createAccountButton = findViewById(R.id.createAccountButton)
-        createAccountButton!!.setOnClickListener {
-            val intent = Intent(this, CreateAccountActivity::class.java).apply {
-                putExtra(EXTRA, arrayOf<String>())
-            }
-            startActivity(intent)
-        }
-
         loginButton = findViewById(R.id.loginButton)
         loginButton!!.setOnClickListener {
             this.login()

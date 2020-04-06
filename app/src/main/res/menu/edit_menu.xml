@@ -4,12 +4,12 @@
 
     <item
         android:id="@+id/edit"
-        android:icon="@android:drawable/ic_menu_edit"
+        android:icon="@mipmap/ic_edit_foreground"
         android:title="@string/edit"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/delete"
-        android:icon="@android:drawable/ic_menu_delete"
+        android:icon="@mipmap/ic_delete_foreground"
         android:title="@string/delete"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 </menu>
