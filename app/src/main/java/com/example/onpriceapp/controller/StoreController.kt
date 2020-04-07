@@ -39,9 +39,9 @@ class StoreController(context: Context) {
         }
     }
 
-    fun list() : List<Store>
+    fun list() : Array<Store>
     {
-        return dbController.listStores()
+        return dbController.listStores().toTypedArray()
     }
 
     fun get(id: Int) : Store?

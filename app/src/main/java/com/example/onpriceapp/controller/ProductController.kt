@@ -22,13 +22,31 @@ class ProductController(context : Context)
         }
     }
 
-    fun list() : Array<Product>
+    fun update(id : Int, name : String, category : String, price : String, stamp : String,
+               quantity : Int, unity : String) : Boolean
     {
-        return dbController.listProducts().toTypedArray()
+        return try {
+            dbController.updateProduct(id, name, category, price, stamp, quantity, unity)
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 
-    fun delete(id : Int)
+    fun list(id_store : Int) : Array<Product>
     {
+        return dbController.listProducts(id_store).toTypedArray()
+    }
 
+    fun delete(id : Int) : Boolean
+    {
+        return try
+        {
+            dbController.deleteProduct(id)
+            true
+        } catch (e : Exception)
+        {
+            false
+        }
     }
 }

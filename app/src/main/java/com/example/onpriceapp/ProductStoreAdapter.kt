@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.onpriceapp.controller.ProductController
 import com.example.onpriceapp.model.Product
 
-class ProductStoreAdapter(private var myDataset : Array<Product>) :
+class ProductStoreAdapter(private var myDataset : Array<Product>, private val store_id: Int) :
     RecyclerView.Adapter<ProductStoreAdapter.MyViewHolder>()
 {
     class MyViewHolder(v : View) : RecyclerView.ViewHolder(v)
@@ -44,7 +44,7 @@ class ProductStoreAdapter(private var myDataset : Array<Product>) :
 
             ProductController(v.context).delete(product.id)
 
-            myDataset = ProductController(v.context).list()
+            myDataset = ProductController(v.context).list(store_id)
             notifyDataSetChanged()
         }
 

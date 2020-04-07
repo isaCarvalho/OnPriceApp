@@ -33,7 +33,7 @@ class StoreProductsActivity : AppCompatActivity() {
         store = StoreController(this).get(id)
 
         viewManager = LinearLayoutManager(this)
-        viewAdapter = ProductStoreAdapter(ProductController(this).list())
+        viewAdapter = ProductStoreAdapter(ProductController(this).list(id), id)
 
         recyclerView = findViewById<RecyclerView>(R.id.productsStoreList).apply {
             setHasFixedSize(true)
@@ -61,9 +61,11 @@ class StoreProductsActivity : AppCompatActivity() {
         return when (item.itemId)
         {
             R.id.edit -> {
+                val array = arrayOf<String>(store!!.id.toString(), store!!.name, store!!.password, store!!.cnpj,
+                    store!!.street, store!!.number.toString(), store!!.neightborhood, store!!.city, store!!.timeZone)
+
                 val intent = Intent(this, CreateAccountActivity::class.java).apply {
-                    putExtra(EXTRA, arrayOf(store!!.id.toString(), store!!.name, store!!.password, store!!.cnpj,
-                        store!!.street, store!!.number, store!!.neightborhood, store!!.city, store!!.timeZone))
+                    putExtra(EXTRA, array)
                 }
 
                 startActivity(intent)

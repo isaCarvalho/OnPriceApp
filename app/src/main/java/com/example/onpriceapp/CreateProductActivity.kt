@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
 import com.example.onpriceapp.controller.ProductController
 
@@ -32,6 +33,7 @@ class CreateProductActivity : AppCompatActivity() {
         val price = findViewById<EditText>(R.id.priceField).text.toString()
         val unity = findViewById<EditText>(R.id.unityField).text.toString()
         val stamp = findViewById<EditText>(R.id.productStampField).text.toString()
+        val category = findViewById<Spinner>(R.id.categorySpinner).selectedItem.toString()
 
         if (validate(name) && validate(qt.toString()) && validate(price) && validate(unity)) {
 

@@ -94,7 +94,7 @@ class DatabaseController(private val context : Context)
         return items
     }
 
-    fun listProducts() : MutableList<Product>
+    fun listProducts(id_store : Int) : MutableList<Product>
     {
         val db = dbHelper.readableDatabase
 
@@ -106,8 +106,8 @@ class DatabaseController(private val context : Context)
         val cursor = db.query(
             DatabaseCreate.FeedReaderContract.FeedEntry.TABLE_PRODUCTS,
             projection,
-            null,
-            null,
+            "${DatabaseCreate.FeedReaderContract.FeedEntry.ID_STORE} = ?",
+            arrayOf(id_store.toString()),
             null,
             null,
             null
@@ -199,8 +199,29 @@ class DatabaseController(private val context : Context)
                     uf : String, time : String)
     {
         dbHelper.writableDatabase.execSQL("UPDATE ${DatabaseCreate.FeedReaderContract.FeedEntry.TABLE_STORE} SET " +
-            "name = $name AND password = $password AND cnpj = $cnpj AND street = $street AND number = $number AND " +
-                "bairro = $bairro AND city = $city AND uf = $uf AND timeZone = $time " +
+            "${DatabaseCreate.FeedReaderContract.FeedEntry.NAME_STORE} = '$name' AND " +
+            "${DatabaseCreate.FeedReaderContract.FeedEntry.PASSOWORD_STORE} = '$password' AND " +
+            "${DatabaseCreate.FeedReaderContract.FeedEntry.CNPJ_STORE} = '$cnpj' AND " +
+            "${DatabaseCreate.FeedReaderContract.FeedEntry.STREET_STORE} = '$street' AND "+
+            "${DatabaseCreate.FeedReaderContract.FeedEntry.NUMBER_STORE} = '$number' AND " +
+            "${DatabaseCreate.FeedReaderContract.FeedEntry.BAIRRO_STORE} = '$bairro' AND " +
+            "${DatabaseCreate.FeedReaderContract.FeedEntry.CITY_STORE} = '$city' AND "+
+            "${DatabaseCreate.FeedReaderContract.FeedEntry.UF_STORE} = '$uf' AND "+
+            "${DatabaseCreate.FeedReaderContract.FeedEntry.TIME} = '$time' " +
+            "WHERE ${BaseColumns._ID} = $id"
+        )
+    }
+
+    fun updateProduct(id : Int, name : String, category : String, price : String, stamp : String,
+                      quantity : Int, unity : String)
+    {
+        dbHelper.writableDatabase.execSQL("UPDATE ${DatabaseCreate.FeedReaderContract.FeedEntry.TABLE_PRODUCTS} SET " +
+                "${DatabaseCreate.FeedReaderContract.FeedEntry.NAME_STORE} = '$name' AND " +
+                "${DatabaseCreate.FeedReaderContract.FeedEntry.CATEGORY_PRODUCTS} = '$category' AND " +
+                "${DatabaseCreate.FeedReaderContract.FeedEntry.PRICE_PRODUCTS} = '$price' AND " +
+                "${DatabaseCreate.FeedReaderContract.FeedEntry.STAMP_PRODUCTS} = '$stamp' AND "+
+                "${DatabaseCreate.FeedReaderContract.FeedEntry.QT_PRODUCTS} = '$quantity' AND " +
+                "${DatabaseCreate.FeedReaderContract.FeedEntry.UNITY_PRODUCTS} = '$unity' AND " +
                 "WHERE ${BaseColumns._ID} = $id"
         )
     }
@@ -208,6 +229,13 @@ class DatabaseController(private val context : Context)
     fun deleteStore(id : Int)
     {
         dbHelper.writableDatabase.execSQL("DELETE FROM  ${DatabaseCreate.FeedReaderContract.FeedEntry.TABLE_STORE} " +
+                "WHERE ${BaseColumns._ID} = $id"
+        )
+    }
+
+    fun deleteProduct(id : Int)
+    {
+        dbHelper.writableDatabase.execSQL("DELETE FROM  ${DatabaseCreate.FeedReaderContract.FeedEntry.TABLE_PRODUCTS} " +
                 "WHERE ${BaseColumns._ID} = $id"
         )
     }

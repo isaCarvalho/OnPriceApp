@@ -54,7 +54,6 @@
         style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="#ffffff"
         android:ems="10"
@@ -99,7 +98,7 @@
     <EditText
         android:id="@+id/productStampField"
         style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="#ffffff"

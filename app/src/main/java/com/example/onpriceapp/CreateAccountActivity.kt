@@ -5,18 +5,32 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
 import com.example.onpriceapp.controller.StoreController
 
 class CreateAccountActivity : AppCompatActivity() {
 
     var createAccountButton : Button? = null
+    var array : Array<String>? = arrayOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_account)
 
-        val array = intent.getStringArrayExtra(EXTRA)
+        array = intent.getStringArrayExtra(EXTRA)
+
+        if (!array.isNullOrEmpty())
+        {
+            findViewById<EditText>(R.id.nameField).setText(array!![1])
+            findViewById<EditText>(R.id.passwordField).setText(array!![2])
+            findViewById<EditText>(R.id.cnpjField).setText(array!![3])
+            findViewById<EditText>(R.id.streetField).setText(array!![4])
+            findViewById<EditText>(R.id.numberField).setText(array!![5])
+            findViewById<EditText>(R.id.bairroField).setText(array!![6])
+            findViewById<EditText>(R.id.cityField).setText(array!![7])
+            findViewById<EditText>(R.id.timeField).setText(array!![8])
+        }
 
         createAccountButton = findViewById(R.id.createButton)
         createAccountButton!!.setOnClickListener {
@@ -24,7 +38,7 @@ class CreateAccountActivity : AppCompatActivity() {
                 this.putData(false)
             else
             {
-                this.putData(true, array[0].toInt())
+                this.putData(true, array!![0].toInt())
             }
         }
 
@@ -40,6 +54,7 @@ class CreateAccountActivity : AppCompatActivity() {
         val bairro = findViewById<EditText>(R.id.bairroField).text.toString()
         val city = findViewById<EditText>(R.id.cityField).text.toString()
         val time = findViewById<EditText>(R.id.timeField).text.toString()
+        val uf = findViewById<Spinner>(R.id.spinner).selectedItem.toString()
 
         if (validate(name) && validate(password) && validate(cnpj) && validate(street) && validate(number)
             && validate(bairro) && validate(city) && validate(time)) {
@@ -48,7 +63,7 @@ class CreateAccountActivity : AppCompatActivity() {
             {
                 if (StoreController(this).createAccount(
                         name, password, cnpj, street, number, bairro,
-                        city, "RJ", time
+                        city, uf, time
                     )
                 ) {
                     Toast.makeText(this, "Conta criada com sucesso!", Toast.LENGTH_SHORT).show()
