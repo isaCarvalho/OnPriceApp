@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
@@ -43,5 +44,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId)
+        {
+            R.id.main_menu_help -> {
+                startActivity(Intent(this, HelpActivity::class.java))
+
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

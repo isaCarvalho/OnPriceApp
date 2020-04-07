@@ -8,5 +8,4 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="textAppearanceSubtitle1">@style/TextAppearance.MaterialComponents.Subtitle1</item>
     </style>
-
 </resources>

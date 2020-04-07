@@ -220,8 +220,8 @@ class DatabaseController(private val context : Context)
                 "${DatabaseCreate.FeedReaderContract.FeedEntry.CATEGORY_PRODUCTS} = '$category' AND " +
                 "${DatabaseCreate.FeedReaderContract.FeedEntry.PRICE_PRODUCTS} = '$price' AND " +
                 "${DatabaseCreate.FeedReaderContract.FeedEntry.STAMP_PRODUCTS} = '$stamp' AND "+
-                "${DatabaseCreate.FeedReaderContract.FeedEntry.QT_PRODUCTS} = '$quantity' AND " +
-                "${DatabaseCreate.FeedReaderContract.FeedEntry.UNITY_PRODUCTS} = '$unity' AND " +
+                "${DatabaseCreate.FeedReaderContract.FeedEntry.QT_PRODUCTS} = $quantity AND " +
+                "${DatabaseCreate.FeedReaderContract.FeedEntry.UNITY_PRODUCTS} = '$unity' " +
                 "WHERE ${BaseColumns._ID} = $id"
         )
     }

@@ -79,4 +79,11 @@
     <string name="delete">Excluir</string>
     <string name="open">Buscar</string>
 
+    <string name="text">
+        O On Price é um aplicativo que permite estabelecimentos cadastrarem seus produtos, preços,
+        bem como suas principais informações como endereco, horário de funcionamento, etc.
+
+        Também permite aos usuários de buscar produtos em diversos mercados.
+    </string>
+
 </resources>

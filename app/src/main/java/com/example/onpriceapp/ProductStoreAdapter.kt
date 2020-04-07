@@ -50,9 +50,10 @@ class ProductStoreAdapter(private var myDataset : Array<Product>, private val st
 
         holder.imageEdit.setOnClickListener{v ->
             val product = myDataset[position]
+            val array = arrayOf<String>(product.id.toString(), product.name, product.unit, product.qt.toString(), product.price, product.stamp, store_id.toString())
 
             val intent = Intent(v.context, CreateProductActivity::class.java).apply {
-                putExtra(EXTRA, arrayOf(product.id.toString(), product.name, product.unit, product.qt, product.price));
+                putExtra(EXTRA, array);
             }
 
             startActivity(v.context, intent, null)

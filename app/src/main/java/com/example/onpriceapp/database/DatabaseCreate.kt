@@ -58,7 +58,7 @@ class DatabaseCreate (context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
                 "${FeedReaderContract.FeedEntry.CATEGORY_PRODUCTS} TEXT, " +
                 "${FeedReaderContract.FeedEntry.PRICE_PRODUCTS} TEXT, " +
                 "${FeedReaderContract.FeedEntry.QT_PRODUCTS} INT, " +
-                "${FeedReaderContract.FeedEntry.STAMP_PRODUCTS} INT, " +
+                "${FeedReaderContract.FeedEntry.STAMP_PRODUCTS} TEXT, " +
                 "${FeedReaderContract.FeedEntry.UNITY_PRODUCTS} TEXT, " +
                 "${FeedReaderContract.FeedEntry.ID_STORE} INT NOT NULL CONSTRAINT store_id REFERENCES stores (id) )"
 
