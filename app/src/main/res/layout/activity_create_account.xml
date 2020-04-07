@@ -27,7 +27,7 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:contentDescription="@string/userName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -35,10 +35,12 @@
 
             <EditText
                 android:id="@+id/nameField"
+                style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:background="#ffffff"
                 android:ems="10"
                 android:hint="@string/userName"
                 android:importantForAutofill="no"
@@ -52,7 +54,7 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:contentDescription="@string/password"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/personImage"
@@ -60,9 +62,11 @@
 
             <EditText
                 android:id="@+id/passwordField"
+                style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:background="#ffffff"
                 android:ems="10"
                 android:hint="@string/password"
                 android:importantForAutofill="no"
@@ -75,7 +79,7 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:contentDescription="@string/cnpj"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/passwordImage"
@@ -83,10 +87,12 @@
 
             <EditText
                 android:id="@+id/cnpjField"
+                style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:background="#ffffff"
                 android:ems="10"
                 android:hint="@string/cnpj"
                 android:importantForAutofill="no"
@@ -100,7 +106,7 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:contentDescription="@string/street"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/shopImage"
@@ -108,10 +114,12 @@
 
             <EditText
                 android:id="@+id/streetField"
+                style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:background="#ffffff"
                 android:ems="10"
                 android:hint="@string/street"
                 android:importantForAutofill="no"
@@ -122,29 +130,34 @@
 
             <EditText
                 android:id="@+id/numberField"
+                style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:background="#ffffff"
                 android:ems="10"
                 android:hint="@string/number"
                 android:importantForAutofill="no"
                 android:inputType="number"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/streetImage" />
+                app:layout_constraintTop_toBottomOf="@+id/streetField" />
 
             <EditText
                 android:id="@+id/bairroField"
+                style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:background="#ffffff"
                 android:ems="10"
                 android:hint="@string/neighborhood"
                 android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/numberField"
                 app:layout_constraintTop_toBottomOf="@+id/streetField" />
 
@@ -153,7 +166,7 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:contentDescription="@string/city"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/numberField"
@@ -161,10 +174,12 @@
 
             <EditText
                 android:id="@+id/cityField"
+                style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="#ffffff"
                 android:ems="10"
                 android:hint="@string/city"
                 android:importantForAutofill="no"
@@ -175,6 +190,7 @@
 
             <Spinner
                 android:id="@+id/spinner"
+                style="@android:style/Widget.Material.Light.Spinner.Underlined"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -186,11 +202,13 @@
 
             <EditText
                 android:id="@+id/timeField"
+                style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
+                android:background="#ffffff"
                 android:ems="10"
                 android:hint="@string/time"
                 android:importantForAutofill="no"

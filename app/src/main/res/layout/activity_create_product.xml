@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
     tools:context=".CreateProductActivity">
 
     <EditText
         android:id="@+id/productNameField"
+        style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:background="#ffffff"
         android:ems="10"
         android:hint="@string/product_name"
         android:importantForAutofill="no"
@@ -24,6 +25,7 @@
 
     <Spinner
         android:id="@+id/categorySpinner"
+        style="@android:style/Widget.Material.Light.Spinner.Underlined"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -34,10 +36,12 @@
 
     <EditText
         android:id="@+id/priceField"
+        style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:background="#ffffff"
         android:ems="10"
         android:hint="@string/price"
         android:importantForAutofill="no"
@@ -47,10 +51,12 @@
 
     <EditText
         android:id="@+id/qtField"
+        style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="#ffffff"
         android:ems="10"
         android:hint="@string/qt"
         android:importantForAutofill="no"
@@ -61,10 +67,12 @@
 
     <EditText
         android:id="@+id/unityField"
+        style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:background="#ffffff"
         android:ems="10"
         android:hint="@string/unity"
         android:importantForAutofill="no"

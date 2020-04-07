@@ -6,9 +6,9 @@
         Cadastre aqui o seu negócio de forma rápida, fácil e segura
     </string>
 
-    <string name="search_product">Buscar Produtos</string>
+    <string name="search_product">Produtos</string>
     <string name="search_product_description">
-        Encontre os melhores produtos com os melhores preços nos
+        Encontre os melhores produtos nos
         melhores estabelecimentos
     </string>
 
@@ -22,9 +22,11 @@
     <string name="number">N°</string>
     <string name="neighborhood">Bairro</string>
     <string name="city">Cidade</string>
-    <string name="time">Horário de Funcionamento</string>
+    <string name="time">Horário</string>
     <string name="loginButton">Entrar</string>
     <string name="createAccount">Criar Conta</string>
+    <string name="tab">-</string>
+    <string name="stamp">Marca</string>
 
     <array name="uf">
         <item>UF</item>
@@ -75,6 +77,6 @@
     <string name="save">Salvar</string>
     <string name="edit">Editar</string>
     <string name="delete">Excluir</string>
-    <string name="open">Abrir</string>
+    <string name="open">Buscar</string>
 
 </resources>
