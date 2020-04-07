@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.onpriceapp.controller.ProductController
 import com.example.onpriceapp.controller.StoreController
 import com.example.onpriceapp.model.Store
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -18,12 +21,26 @@ class StoreProductsActivity : AppCompatActivity() {
     private var id : Int = 0
     private var store : Store? = null
 
+    var viewManager : LinearLayoutManager? = null
+    private lateinit var viewAdapter: ProductStoreAdapter
+    private lateinit var recyclerView: RecyclerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_store_products)
 
         id = intent.getIntExtra(EXTRA, -1)
         store = StoreController(this).get(id)
+
+        viewManager = LinearLayoutManager(this)
+        viewAdapter = ProductStoreAdapter(ProductController(this).list())
+
+        recyclerView = findViewById<RecyclerView>(R.id.productsStoreList).apply {
+            setHasFixedSize(true)
+
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
 
         fab = findViewById(R.id.fabInsert)
 

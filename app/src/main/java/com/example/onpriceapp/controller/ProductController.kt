@@ -9,12 +9,12 @@ class ProductController(context : Context)
 {
     var dbController = DatabaseController(context)
 
-    fun insert(name : String, category : String, price : String,
+    fun insert(name : String, category : String, price : String, stamp : String,
                       quantity : Int, unity : String, store_id : Int) : Boolean
     {
         return try
         {
-            dbController.insertProduct(name, category, price, quantity, unity, store_id)
+            dbController.insertProduct(name, category, price, stamp, quantity, unity, store_id)
             true
         } catch (e : Exception)
         {
@@ -22,8 +22,13 @@ class ProductController(context : Context)
         }
     }
 
-    fun list() : List<Product>
+    fun list() : Array<Product>
     {
-        return dbController.listProducts()
+        return dbController.listProducts().toTypedArray()
+    }
+
+    fun delete(id : Int)
+    {
+
     }
 }

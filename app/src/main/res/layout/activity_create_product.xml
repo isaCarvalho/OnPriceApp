@@ -47,12 +47,12 @@
         android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categorySpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/productStampField" />
 
     <EditText
         android:id="@+id/qtField"
         style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
-        android:layout_width="100dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -63,12 +63,12 @@
         android:inputType="number"
         app:layout_constraintEnd_toStartOf="@+id/unityField"
         app:layout_constraintStart_toEndOf="@+id/priceField"
-        app:layout_constraintTop_toBottomOf="@+id/categorySpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/productStampField" />
 
     <EditText
         android:id="@+id/unityField"
         style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
-        android:layout_width="80dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
@@ -78,7 +78,7 @@
         android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categorySpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/productStampField" />
 
     <Button
         android:id="@+id/saveButton"
@@ -95,5 +95,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="@string/save" />
+
+    <EditText
+        android:id="@+id/productStampField"
+        style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="#ffffff"
+        android:ems="10"
+        android:hint="@string/stamp"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/categorySpinner"
+        app:layout_constraintTop_toBottomOf="@+id/productNameField" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

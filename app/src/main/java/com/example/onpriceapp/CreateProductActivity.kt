@@ -31,10 +31,11 @@ class CreateProductActivity : AppCompatActivity() {
         val qt = findViewById<EditText>(R.id.qtField).text.toString().toInt()
         val price = findViewById<EditText>(R.id.priceField).text.toString()
         val unity = findViewById<EditText>(R.id.unityField).text.toString()
+        val stamp = findViewById<EditText>(R.id.productStampField).text.toString()
 
         if (validate(name) && validate(qt.toString()) && validate(price) && validate(unity)) {
 
-            if (ProductController(this).insert(name, "Limpeza", price, qt, unity, store_id))
+            if (ProductController(this).insert(name, "Limpeza", price, stamp, qt, unity, store_id))
                 Toast.makeText(this, "Produto criado com sucesso!", Toast.LENGTH_SHORT).show()
             else
                 Toast.makeText(this, "Não foi possível criar o produto!", Toast.LENGTH_SHORT).show()

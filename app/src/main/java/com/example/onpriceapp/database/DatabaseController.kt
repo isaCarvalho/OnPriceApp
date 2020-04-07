@@ -31,7 +31,7 @@ class DatabaseController(private val context : Context)
         db?.insert(DatabaseCreate.FeedReaderContract.FeedEntry.TABLE_STORE, null, values)
     }
 
-    fun insertProduct(name : String, category : String, price : String,
+    fun insertProduct(name : String, category : String, price : String, stamp : String,
                     quantity : Int, unity : String, store_id : Int)
     {
         val db = dbHelper.writableDatabase
@@ -41,6 +41,7 @@ class DatabaseController(private val context : Context)
             put(DatabaseCreate.FeedReaderContract.FeedEntry.CATEGORY_PRODUCTS, category)
             put(DatabaseCreate.FeedReaderContract.FeedEntry.PRICE_PRODUCTS, price)
             put(DatabaseCreate.FeedReaderContract.FeedEntry.QT_PRODUCTS, quantity)
+            put(DatabaseCreate.FeedReaderContract.FeedEntry.STAMP_PRODUCTS, stamp)
             put(DatabaseCreate.FeedReaderContract.FeedEntry.UNITY_PRODUCTS, unity)
             put(DatabaseCreate.FeedReaderContract.FeedEntry.ID_STORE, store_id)
         }
@@ -99,7 +100,7 @@ class DatabaseController(private val context : Context)
 
         val projection = arrayOf(BaseColumns._ID, DatabaseCreate.FeedReaderContract.FeedEntry.NAME_PRODUCTS,
             DatabaseCreate.FeedReaderContract.FeedEntry.CATEGORY_PRODUCTS, DatabaseCreate.FeedReaderContract.FeedEntry.UNITY_PRODUCTS,
-            DatabaseCreate.FeedReaderContract.FeedEntry.QT_PRODUCTS, DatabaseCreate.FeedReaderContract.FeedEntry.PRICE_PRODUCTS,
+            DatabaseCreate.FeedReaderContract.FeedEntry.QT_PRODUCTS, DatabaseCreate.FeedReaderContract.FeedEntry.STAMP_PRODUCTS, DatabaseCreate.FeedReaderContract.FeedEntry.PRICE_PRODUCTS,
             DatabaseCreate.FeedReaderContract.FeedEntry.ID_STORE)
 
         val cursor = db.query(
@@ -121,8 +122,9 @@ class DatabaseController(private val context : Context)
                 val price = getString(getColumnIndexOrThrow(DatabaseCreate.FeedReaderContract.FeedEntry.PRICE_PRODUCTS))
                 val qt = getString(getColumnIndexOrThrow(DatabaseCreate.FeedReaderContract.FeedEntry.QT_PRODUCTS)).toInt()
                 val unity = getString(getColumnIndexOrThrow(DatabaseCreate.FeedReaderContract.FeedEntry.UNITY_PRODUCTS))
+                val stamp = getString(getColumnIndexOrThrow(DatabaseCreate.FeedReaderContract.FeedEntry.STAMP_PRODUCTS))
 
-                val product = Product(id, name, category, price, qt, unity)
+                val product = Product(id, name, category, price, stamp, qt, unity)
 
                 items.add(product)
             }
