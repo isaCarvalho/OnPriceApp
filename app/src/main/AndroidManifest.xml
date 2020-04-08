@@ -9,8 +9,13 @@
         android:roundIcon="@mipmap/ic_laucher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HelpActivity"
-            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".ListProductActivity"></activity>
+        <activity
+            android:name=".ListStoresActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".HelpActivity"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".CreateProductActivity"
             android:parentActivityName=".StoreProductsActivity" />

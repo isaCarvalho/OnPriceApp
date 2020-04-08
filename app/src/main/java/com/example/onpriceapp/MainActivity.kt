@@ -12,6 +12,7 @@ import androidx.cardview.widget.CardView
 class MainActivity : AppCompatActivity() {
 
     var cardStore : ImageView? = null
+    var cardProduct : ImageView? = null
     var createAccountButton : Button? = null
     var loginMain : Button? = null
 
@@ -38,6 +39,12 @@ class MainActivity : AppCompatActivity() {
         loginMain!!.setOnClickListener {
             val intent = Intent(this, StoreLoginActivity::class.java)
             startActivity(intent)
+        }
+
+        cardProduct = findViewById(R.id.cardProductImage)
+
+        cardProduct!!.setOnClickListener {
+            startActivity(Intent(this, ListStoresActivity::class.java))
         }
     }
 
