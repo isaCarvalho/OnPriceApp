@@ -1,11 +1,13 @@
 package com.example.onpriceapp
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.onpriceapp.model.Store
 
@@ -33,8 +35,12 @@ class StoreAdapter(private var myDataset : Array<Store>) :
                 ", Bairro ${myDataset[position].neightborhood} - ${myDataset[position].city}"
         holder.time.text = "Aberto até: ${myDataset[position].timeZone}"
 
-        holder.buttonOpen.setOnClickListener {
+        holder.buttonOpen.setOnClickListener {v ->
+            val intent = Intent(v.context, ProductsActivity::class.java).apply {
+                putExtra(EXTRA, myDataset[position].id)
+            }
 
+            startActivity(v.context, intent, null)
         }
     }
 

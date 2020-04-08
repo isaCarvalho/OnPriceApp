@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     var cardStore : ImageView? = null
     var cardProduct : ImageView? = null
+    var openButton : Button? = null
     var createAccountButton : Button? = null
     var loginMain : Button? = null
 
@@ -44,6 +45,12 @@ class MainActivity : AppCompatActivity() {
         cardProduct = findViewById(R.id.cardProductImage)
 
         cardProduct!!.setOnClickListener {
+            startActivity(Intent(this, ListStoresActivity::class.java))
+        }
+
+        openButton = findViewById(R.id.search)
+
+        openButton!!.setOnClickListener {
             startActivity(Intent(this, ListStoresActivity::class.java))
         }
     }

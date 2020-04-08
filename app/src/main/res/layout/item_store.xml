@@ -31,11 +31,11 @@
 
             <TextView
                 android:id="@+id/endereco"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:textColor="@android:color/black"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="#292929"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/storeName" />
 
@@ -66,9 +66,9 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:background="#808080"
+                android:background="#B4B4B4"
                 android:contentDescription="@string/app_name"
-                android:tint="#808080"
+                android:tint="#B4B4B4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.6"
                 app:layout_constraintStart_toStartOf="parent"
