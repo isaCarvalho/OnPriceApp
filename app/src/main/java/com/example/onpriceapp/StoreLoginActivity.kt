@@ -12,7 +12,6 @@ import com.example.onpriceapp.controller.StoreController
 
 class StoreLoginActivity : AppCompatActivity() {
 
-    var createAccountButton : Button? = null
     var loginButton : Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

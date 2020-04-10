@@ -3,10 +3,7 @@ package com.example.onpriceapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import com.example.onpriceapp.controller.ProductController
 
 class CreateProductActivity : AppCompatActivity() {
@@ -21,7 +18,6 @@ class CreateProductActivity : AppCompatActivity() {
         setContentView(R.layout.activity_create_product)
 
         id = intent.getIntExtra(EXTRA, -1)
-
         array = intent.getStringArrayExtra(EXTRA)
 
         if (!array.isNullOrEmpty())
@@ -35,6 +31,9 @@ class CreateProductActivity : AppCompatActivity() {
             id = array!![6].toInt()
             product_id = array!![0].toInt()
         }
+
+        val storeId = findViewById<TextView>(R.id.storeName)
+        storeId.text = id.toString()
 
         saveButton = findViewById(R.id.saveButton)
         saveButton!!.setOnClickListener {

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +13,7 @@ import com.example.onpriceapp.controller.ProductController
 import com.example.onpriceapp.controller.StoreController
 import com.example.onpriceapp.model.Store
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import org.w3c.dom.Text
 
 const val EXTRA = "com.example.onpriceapp.MESSAGE"
 
@@ -61,7 +63,7 @@ class StoreProductsActivity : AppCompatActivity() {
         return when (item.itemId)
         {
             R.id.edit -> {
-                val array = arrayOf<String>(store!!.id.toString(), store!!.name, store!!.password, store!!.cnpj,
+                val array = arrayOf(store!!.id.toString(), store!!.name, store!!.password, store!!.cnpj,
                     store!!.street, store!!.number.toString(), store!!.neightborhood, store!!.city, store!!.timeZone)
 
                 val intent = Intent(this, CreateAccountActivity::class.java).apply {

@@ -4,83 +4,130 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context=".CreateProductActivity">
 
-    <EditText
-        android:id="@+id/productNameField"
-        style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="#ffffff"
-        android:ems="10"
-        android:hint="@string/product_name"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Spinner
-        android:id="@+id/categorySpinner"
-        style="@android:style/Widget.Material.Light.Spinner.Underlined"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:entries="@array/category"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productNameField" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/priceField"
-        style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:background="#ffffff"
-        android:ems="10"
-        android:hint="@string/price"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productStampField" />
+            <TextView
+                android:id="@+id/storeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/qtField"
-        style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="#ffffff"
-        android:ems="10"
-        android:hint="@string/qt"
-        android:importantForAutofill="no"
-        android:inputType="number"
-        app:layout_constraintEnd_toStartOf="@+id/unityField"
-        app:layout_constraintStart_toEndOf="@+id/priceField"
-        app:layout_constraintTop_toBottomOf="@+id/productStampField" />
+            <EditText
+                android:id="@+id/productNameField"
+                style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="#e9e9e9"
+                android:ems="10"
+                android:hint="@string/product_name"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/storeName" />
 
-    <EditText
-        android:id="@+id/unityField"
-        style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="#ffffff"
-        android:ems="10"
-        android:hint="@string/unity"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productStampField" />
+            <Spinner
+                android:id="@+id/categorySpinner"
+                style="@android:style/Widget.Material.Light.Spinner.Underlined"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:entries="@array/category"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productNameField" />
+
+            <EditText
+                android:id="@+id/priceField"
+                style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:background="#e9e9e9"
+                android:ems="10"
+                android:hint="@string/price"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productStampField" />
+
+            <EditText
+                android:id="@+id/qtField"
+                style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="#e9e9e9"
+                android:ems="10"
+                android:hint="@string/qt"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                app:layout_constraintStart_toEndOf="@+id/priceField"
+                app:layout_constraintTop_toBottomOf="@+id/productStampField" />
+
+            <EditText
+                android:id="@+id/unityField"
+                style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="#e9e9e9"
+                android:ems="10"
+                android:hint="@string/unity"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                app:layout_constraintStart_toEndOf="@+id/categorySpinner"
+                app:layout_constraintTop_toBottomOf="@+id/productNameField" />
+
+            <EditText
+                android:id="@+id/productStampField"
+                style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="#e9e9e9"
+                android:ems="10"
+                android:hint="@string/stamp"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/unityField" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/saveButton"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -94,20 +141,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="@string/save" />
-
-    <EditText
-        android:id="@+id/productStampField"
-        style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="#ffffff"
-        android:ems="10"
-        android:hint="@string/stamp"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/categorySpinner"
-        app:layout_constraintTop_toBottomOf="@+id/productNameField" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
