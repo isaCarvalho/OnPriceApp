@@ -25,6 +25,7 @@
     <string name="time">Horário</string>
     <string name="loginButton">Entrar</string>
     <string name="createAccount">Criar Conta</string>
+    <string name="createProduct">Criar Produto</string>
     <string name="tab">-</string>
     <string name="stamp">Marca</string>
 
@@ -72,6 +73,7 @@
         <item>Verduras</item>
         <item>Frutas</item>
         <item>Carnes</item>
+        <item>Não perecíveis</item>
     </array>
 
     <string name="save">Salvar</string>
@@ -79,11 +81,49 @@
     <string name="delete">Excluir</string>
     <string name="open">Buscar</string>
 
-    <string name="text">
-        O On Price é um aplicativo que permite estabelecimentos cadastrarem seus produtos, preços,
-        bem como suas principais informações como endereco, horário de funcionamento, etc.
+    <string name="txtCreateDescription">
+        Para criar uma conta, o usuário, dono do estabelecimetno, deve preencher o formulário
+        com os dados solicitados.
+    </string>
 
-        Também permite aos usuários de buscar produtos em diversos mercados.
+    <string name="txtCreateRedirect">
+        Logo após, será redirecionado para realizar o login no On Price App.
+    </string>
+
+    <string name="txtLoginDescription">
+        Insira os dados do estabelecimento (nome e senha) e clique no botão "Entrar" abaixo do
+        formulário.
+    </string>
+
+    <string name="txtLoginRedirect">
+        O usuário será redirecionado para o espaço do mercado, onde poderá gerenciar seus produtos.
+    </string>
+
+    <string name="txtCreateProductDescription">
+        Preencha o formulário com os dados do produto. Lembre-se de preencher o campo de unidade,
+        como Kg, Pacote, etc.
+    </string>
+
+    <string name="txtCreateProductRedirect">
+        O produto aparecerá no espaço do mercado.
+    </string>
+
+    <string name="txtViewStoreDescription">
+       Clique em produtos na tela inicial.
+    </string>
+
+    <string name="txtViewStoreRedirect">
+        O usuário será redirecionado para uma tela com uma lista dos mercados cadastrados no On
+        Price App.
+    </string>
+
+    <string name="txtViewProductDescription">
+       Na listagem de estabelecimentos descrita no passo acima, clique no mercado desejado.
+    </string>
+
+    <string name="txtViewProductRedirect">
+        O usuário será redirecionado para uma tela com uma lista dos produtos deste estabelecimento
+        cadastrados no On Price App.
     </string>
 
 </resources>
