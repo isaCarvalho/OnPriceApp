@@ -32,9 +32,6 @@ class CreateProductActivity : AppCompatActivity() {
             product_id = array!![0].toInt()
         }
 
-        val storeId = findViewById<TextView>(R.id.storeName)
-        storeId.text = id.toString()
-
         saveButton = findViewById(R.id.saveButton)
         saveButton!!.setOnClickListener {
             if (array.isNullOrEmpty())

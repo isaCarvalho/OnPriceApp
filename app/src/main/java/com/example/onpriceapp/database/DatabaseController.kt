@@ -3,6 +3,7 @@ package com.example.onpriceapp.database
 import android.content.ContentValues
 import android.content.Context
 import android.provider.BaseColumns
+import androidx.core.content.contentValuesOf
 import com.example.onpriceapp.model.Product
 import com.example.onpriceapp.model.Store
 
@@ -200,19 +201,19 @@ class DatabaseController(private val context : Context)
     {
         val db = dbHelper.writableDatabase
 
-        val query = "UPDATE ${DatabaseCreate.FeedReaderContract.FeedEntry.TABLE_STORE} SET " +
-                "${DatabaseCreate.FeedReaderContract.FeedEntry.NAME_STORE} = '$name' AND " +
-                "${DatabaseCreate.FeedReaderContract.FeedEntry.PASSOWORD_STORE} = '$password' AND " +
-                "${DatabaseCreate.FeedReaderContract.FeedEntry.CNPJ_STORE} = '$cnpj' AND " +
-                "${DatabaseCreate.FeedReaderContract.FeedEntry.STREET_STORE} = '$street' AND "+
-                "${DatabaseCreate.FeedReaderContract.FeedEntry.NUMBER_STORE} = '$number' AND " +
-                "${DatabaseCreate.FeedReaderContract.FeedEntry.BAIRRO_STORE} = '$bairro' AND " +
-                "${DatabaseCreate.FeedReaderContract.FeedEntry.CITY_STORE} = '$city' AND "+
-                "${DatabaseCreate.FeedReaderContract.FeedEntry.UF_STORE} = '$uf' AND "+
-                "${DatabaseCreate.FeedReaderContract.FeedEntry.TIME} = '$time' " +
-                "WHERE ${BaseColumns._ID} = $id"
+        val contents = contentValuesOf(
+            Pair(DatabaseCreate.FeedReaderContract.FeedEntry.NAME_STORE, name),
+            Pair(DatabaseCreate.FeedReaderContract.FeedEntry.PASSOWORD_STORE, password),
+            Pair(DatabaseCreate.FeedReaderContract.FeedEntry.CNPJ_STORE, cnpj),
+            Pair(DatabaseCreate.FeedReaderContract.FeedEntry.STREET_STORE, street),
+            Pair(DatabaseCreate.FeedReaderContract.FeedEntry.NUMBER_STORE, number),
+            Pair(DatabaseCreate.FeedReaderContract.FeedEntry.BAIRRO_STORE, bairro),
+            Pair(DatabaseCreate.FeedReaderContract.FeedEntry.CITY_STORE, city),
+            Pair(DatabaseCreate.FeedReaderContract.FeedEntry.UF_STORE, uf),
+            Pair(DatabaseCreate.FeedReaderContract.FeedEntry.TIME, time)
+        )
 
-        db.execSQL(query)
+        db.update(DatabaseCreate.FeedReaderContract.FeedEntry.TABLE_STORE,contents, "${BaseColumns._ID} = ?", arrayOf(id.toString()))
     }
 
     fun updateProduct(id : Int, name : String, category : String, price : String, stamp : String,
@@ -220,29 +221,28 @@ class DatabaseController(private val context : Context)
     {
         val db = dbHelper.writableDatabase
 
-        val query = "UPDATE ${DatabaseCreate.FeedReaderContract.FeedEntry.TABLE_PRODUCTS} SET " +
-                "${DatabaseCreate.FeedReaderContract.FeedEntry.NAME_PRODUCTS} = '$name' AND " +
-                "${DatabaseCreate.FeedReaderContract.FeedEntry.CATEGORY_PRODUCTS} = '$category' AND " +
-                "${DatabaseCreate.FeedReaderContract.FeedEntry.PRICE_PRODUCTS} = '$price' AND " +
-                "${DatabaseCreate.FeedReaderContract.FeedEntry.STAMP_PRODUCTS} = '$stamp' AND "+
-                "${DatabaseCreate.FeedReaderContract.FeedEntry.QT_PRODUCTS} = $quantity AND " +
-                "${DatabaseCreate.FeedReaderContract.FeedEntry.UNITY_PRODUCTS} = '$unity' " +
-                "WHERE ${BaseColumns._ID} = $id"
+        val contents = contentValuesOf(
+            Pair(DatabaseCreate.FeedReaderContract.FeedEntry.NAME_PRODUCTS, name),
+            Pair(DatabaseCreate.FeedReaderContract.FeedEntry.CATEGORY_PRODUCTS, category),
+            Pair(DatabaseCreate.FeedReaderContract.FeedEntry.PRICE_PRODUCTS, price),
+            Pair(DatabaseCreate.FeedReaderContract.FeedEntry.STAMP_PRODUCTS, stamp),
+            Pair(DatabaseCreate.FeedReaderContract.FeedEntry.QT_PRODUCTS, quantity),
+            Pair(DatabaseCreate.FeedReaderContract.FeedEntry.UNITY_PRODUCTS, unity)
+        )
 
-        db.execSQL(query)
+        db.update(DatabaseCreate.FeedReaderContract.FeedEntry.TABLE_PRODUCTS, contents, "${BaseColumns._ID} = ?", arrayOf(id.toString()))
     }
 
     fun deleteStore(id : Int)
     {
-        dbHelper.writableDatabase.execSQL("DELETE FROM  ${DatabaseCreate.FeedReaderContract.FeedEntry.TABLE_STORE} " +
-                "WHERE ${BaseColumns._ID} = $id"
+        dbHelper.writableDatabase.delete(DatabaseCreate.FeedReaderContract.FeedEntry.TABLE_STORE,
+                "${BaseColumns._ID} = ?", arrayOf(id.toString())
         )
     }
 
     fun deleteProduct(id : Int)
     {
-        dbHelper.writableDatabase.execSQL("DELETE FROM  ${DatabaseCreate.FeedReaderContract.FeedEntry.TABLE_PRODUCTS} " +
-                "WHERE ${BaseColumns._ID} = $id"
-        )
+        dbHelper.writableDatabase.delete(DatabaseCreate.FeedReaderContract.FeedEntry.TABLE_PRODUCTS,
+            "${BaseColumns._ID} = ?", arrayOf(id.toString()))
     }
 }
