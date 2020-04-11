@@ -33,9 +33,9 @@ class ProductController(context : Context)
         }
     }
 
-    fun list(id_store : Int) : Array<Product>
+    fun list(id_store : Int) : ArrayList<Product>
     {
-        return dbController.listProducts(id_store).toTypedArray()
+        return dbController.listProducts(id_store) as ArrayList<Product>
     }
 
     fun delete(id : Int) : Boolean

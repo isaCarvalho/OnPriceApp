@@ -7,7 +7,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
-import androidx.cardview.widget.CardView
 
 class MainActivity : AppCompatActivity() {
 

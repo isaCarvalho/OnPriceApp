@@ -4,13 +4,17 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.onpriceapp.model.Product
 
-class ListProductsAdapter(private var myDataset : Array<Product>)
-    : RecyclerView.Adapter<ListProductsAdapter.MyViewHolder>()
+class ListProductsAdapter(private var myDataset : ArrayList<Product>)
+    : RecyclerView.Adapter<ListProductsAdapter.MyViewHolder>(), Filterable
 {
+    private var listCopy : ArrayList<Product> = ArrayList(myDataset.toMutableList())
+
     class MyViewHolder(v: View) : RecyclerView.ViewHolder(v)
     {
         val name : TextView = v.findViewById(R.id.productName)
@@ -35,4 +39,36 @@ class ListProductsAdapter(private var myDataset : Array<Product>)
     }
 
     override fun getItemCount(): Int = myDataset.size
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val filterList = ArrayList<Product>()
+
+                if (constraint.isNullOrEmpty())
+                    filterList.addAll(listCopy)
+                else {
+                    val filterPattern = constraint.toString().toLowerCase().trim()
+
+                    listCopy.forEach { item ->
+                        if (item.name.toLowerCase().contains(filterPattern))
+                            filterList.add(item)
+                    }
+                }
+
+                val results = FilterResults()
+                results.values = filterList
+
+                return results
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+
+                myDataset.clear()
+                myDataset = results!!.values as ArrayList<Product>
+
+                notifyDataSetChanged()
+            }
+        }
+    }
 }
