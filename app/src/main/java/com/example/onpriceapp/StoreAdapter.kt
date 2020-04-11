@@ -6,14 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.onpriceapp.model.Product
 import com.example.onpriceapp.model.Store
 
-class StoreAdapter(private var myDataset : Array<Store>) :
-    RecyclerView.Adapter<StoreAdapter.MyViewHolder>()
+class StoreAdapter(private var myDataset : ArrayList<Store>) :
+    RecyclerView.Adapter<StoreAdapter.MyViewHolder>(), Filterable
 {
+    private val listCopy = ArrayList<Store>(myDataset.toMutableList())
+
     class MyViewHolder (v: View) : RecyclerView.ViewHolder(v)
     {
         val name : TextView = v.findViewById(R.id.storeName)
@@ -45,4 +50,38 @@ class StoreAdapter(private var myDataset : Array<Store>) :
     }
 
     override fun getItemCount(): Int = myDataset.size
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+
+                val filterList = ArrayList<Store>()
+
+                if (constraint.isNullOrEmpty())
+                    filterList.addAll(listCopy)
+                else
+                {
+                    val filterPattern = constraint.toString().toLowerCase().trim()
+
+                    listCopy.forEach { item ->
+                        if (item.name.toLowerCase().contains(filterPattern))
+                            filterList.add(item)
+                    }
+                }
+
+                val results = FilterResults()
+                results.values = filterList
+
+                return results
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+
+                myDataset.clear()
+                myDataset = results!!.values as ArrayList<Store>
+
+                notifyDataSetChanged()
+            }
+        }
+    }
 }
