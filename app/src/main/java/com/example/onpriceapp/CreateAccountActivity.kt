@@ -1,6 +1,5 @@
 package com.example.onpriceapp
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
@@ -62,22 +61,22 @@ class CreateAccountActivity : AppCompatActivity() {
                         name, password, cnpj, street, number, bairro,
                         city, uf, time
                     )
-                ) {
+                )
+                {
                     Toast.makeText(this, "Conta criada com sucesso!", Toast.LENGTH_SHORT).show()
 
-                    val intent = Intent(this, StoreLoginActivity::class.java)
-                    startActivity(intent)
+                    finish()
                 } else
                     Toast.makeText(this, "Não foi possível criar a conta!", Toast.LENGTH_SHORT).show()
             }
             else
             {
                 if (StoreController(this).update(id, name, password, cnpj, street, number, bairro,
-                        city, "RJ", time)){
+                        city, "RJ", time))
+                {
                     Toast.makeText(this, "Dados atualizados com sucesso!", Toast.LENGTH_SHORT).show()
 
-                    val intent = Intent(this, StoreLoginActivity::class.java)
-                    startActivity(intent)
+                    finish()
                 } else
                     Toast.makeText(this, "Não foi possível atualizar os dados!", Toast.LENGTH_SHORT).show()
             }

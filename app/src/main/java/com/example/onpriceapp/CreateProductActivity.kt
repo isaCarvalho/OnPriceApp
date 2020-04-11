@@ -58,8 +58,6 @@ class CreateProductActivity : AppCompatActivity() {
                     Toast.makeText(this, "Produto criado com sucesso!", Toast.LENGTH_SHORT).show()
                 else
                     Toast.makeText(this, "Não foi possível criar o produto!", Toast.LENGTH_SHORT).show()
-
-                startActivity(Intent(this, StoreProductsActivity::class.java))
             }
             else
             {
@@ -67,10 +65,9 @@ class CreateProductActivity : AppCompatActivity() {
                     Toast.makeText(this, "Produto editado com sucesso!", Toast.LENGTH_SHORT).show()
                 else
                     Toast.makeText(this, "Não foi possível editar o produto!", Toast.LENGTH_SHORT).show()
-
-                startActivity(Intent(this, StoreProductsActivity::class.java))
             }
 
+            finish()
         }
         else
             Toast.makeText(this, "Todos os campos são obrigatórios!", Toast.LENGTH_SHORT).show()
