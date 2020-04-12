@@ -48,7 +48,7 @@ class DatabaseCreate (context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
 
         db!!.execSQL(createStore)
 
-        db!!.execSQL("INSERT INTO ${FeedReaderContract.FeedEntry.TABLE_STORE} " +
+        db.execSQL("INSERT INTO ${FeedReaderContract.FeedEntry.TABLE_STORE} " +
                 "(name, password, cnpj, street, number, bairro, city, uf, timeZone) VALUES" +
                 "('Mercado', 'teste', '1', 'rua de teste', '1', 'bairro de teste', 'cidade de teste', 'RJ', '19:00')")
 
@@ -62,12 +62,12 @@ class DatabaseCreate (context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
                 "${FeedReaderContract.FeedEntry.UNITY_PRODUCTS} TEXT, " +
                 "${FeedReaderContract.FeedEntry.ID_STORE} INT NOT NULL CONSTRAINT store_id REFERENCES stores (id) )"
 
-        db!!.execSQL(createProduct)
+        db.execSQL(createProduct)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         db!!.execSQL("DROP TABLE IF EXISTS ${FeedReaderContract.FeedEntry.TABLE_STORE}")
-        db!!.execSQL("DROP TABLE IF EXISTS ${FeedReaderContract.FeedEntry.TABLE_PRODUCTS}")
+        db.execSQL("DROP TABLE IF EXISTS ${FeedReaderContract.FeedEntry.TABLE_PRODUCTS}")
 
         onCreate(db)
     }
