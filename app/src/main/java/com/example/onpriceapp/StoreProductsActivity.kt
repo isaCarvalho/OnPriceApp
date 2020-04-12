@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -58,7 +59,22 @@ class StoreProductsActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.edit_menu, menu)
-        return super.onCreateOptionsMenu(menu)
+
+        val searchItem = menu!!.findItem(R.id.app_bar_search_store)
+        val searchView : SearchView = searchItem.actionView as SearchView
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewAdapter.filter.filter(newText)
+                return false
+            }
+        })
+
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -87,7 +103,6 @@ class StoreProductsActivity : AppCompatActivity() {
                     Toast.makeText(this, "Não foi possível deletar a conta!", Toast.LENGTH_SHORT).show()
                 true
             }
-
             else -> super.onOptionsItemSelected(item)
         }
     }

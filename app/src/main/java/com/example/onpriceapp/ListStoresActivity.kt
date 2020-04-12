@@ -32,7 +32,7 @@ class ListStoresActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.search_menu, menu)
 
-        val searchItem = menu!!.findItem(R.id.app_bar_search)
+        val searchItem = menu!!.findItem(R.id.app_bar_search_generic)
         val searchView : SearchView = searchItem.actionView as SearchView
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

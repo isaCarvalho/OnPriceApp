@@ -5,6 +5,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
@@ -13,8 +15,10 @@ import com.example.onpriceapp.controller.ProductController
 import com.example.onpriceapp.model.Product
 
 class ProductStoreAdapter(private var myDataset : ArrayList<Product>, private val store_id: Int) :
-    RecyclerView.Adapter<ProductStoreAdapter.MyViewHolder>()
+    RecyclerView.Adapter<ProductStoreAdapter.MyViewHolder>(), Filterable
 {
+    private val listCopy = ArrayList<Product>(myDataset.toMutableList())
+
     class MyViewHolder(v : View) : RecyclerView.ViewHolder(v)
     {
         val nameTxt : TextView = v.findViewById(R.id.productStoreName)
@@ -61,4 +65,37 @@ class ProductStoreAdapter(private var myDataset : ArrayList<Product>, private va
     }
 
     override fun getItemCount(): Int = myDataset.size
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+
+                val listFilter = ArrayList<Product>()
+
+                if (constraint.isNullOrEmpty())
+                    listFilter.addAll(listCopy)
+                else
+                {
+                    val filterPattern = constraint.toString().toLowerCase().trim()
+
+                    listCopy.forEach { item ->
+                        if (item.name.toLowerCase().contains(filterPattern))
+                            listFilter.add(item)
+                    }
+                }
+
+                val results = FilterResults()
+                results.values = listFilter
+
+                return results
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                myDataset.clear()
+                myDataset = results!!.values as ArrayList<Product>
+
+                notifyDataSetChanged()
+            }
+        }
+    }
 }

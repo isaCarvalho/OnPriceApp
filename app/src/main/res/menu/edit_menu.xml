@@ -3,13 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/app_bar_search_store"
+        android:icon="@mipmap/ic_search_background"
+        android:title="@string/search_product"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="always"/>
+    <item
         android:id="@+id/edit"
         android:icon="@mipmap/ic_edit_foreground"
-        android:title="@string/edit"
-        app:showAsAction="ifRoom" />
+        android:title="@string/edit_account" />
     <item
         android:id="@+id/delete"
-        android:icon="@mipmap/ic_delete_foreground"
-        android:title="@string/delete"
-        app:showAsAction="ifRoom" />
+        android:icon="@mipmap/ic_delete_background"
+        android:title="@string/delete_account"/>
 </menu>

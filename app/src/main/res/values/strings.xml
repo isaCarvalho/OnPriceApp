@@ -81,6 +81,9 @@
     <string name="delete">Excluir</string>
     <string name="open">Buscar</string>
 
+    <string name="edit_account">Editar Dados</string>
+    <string name="delete_account">Excluir Conta</string>
+
     <string name="txtCreateDescription">
         Para criar uma conta, o usuário, dono do estabelecimetno, deve preencher o formulário
         com os dados solicitados.
