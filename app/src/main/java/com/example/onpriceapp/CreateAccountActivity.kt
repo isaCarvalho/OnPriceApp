@@ -37,7 +37,6 @@ class CreateAccountActivity : AppCompatActivity() {
                 this.putData(true, array!![0].toInt())
             }
         }
-
     }
 
     private fun putData(update : Boolean, id : Int = -1)

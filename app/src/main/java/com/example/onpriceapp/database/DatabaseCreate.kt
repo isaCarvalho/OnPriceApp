@@ -48,10 +48,6 @@ class DatabaseCreate (context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
 
         db!!.execSQL(createStore)
 
-        db.execSQL("INSERT INTO ${FeedReaderContract.FeedEntry.TABLE_STORE} " +
-                "(name, password, cnpj, street, number, bairro, city, uf, timeZone) VALUES" +
-                "('Mercado', 'teste', '1', 'rua de teste', '1', 'bairro de teste', 'cidade de teste', 'RJ', '19:00')")
-
         val createProduct = "CREATE TABLE ${FeedReaderContract.FeedEntry.TABLE_PRODUCTS} (" +
                 "${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "${FeedReaderContract.FeedEntry.NAME_PRODUCTS} TEXT, " +
