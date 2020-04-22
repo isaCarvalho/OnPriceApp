@@ -54,6 +54,9 @@ class StoreLoginActivity : AppCompatActivity() {
         if (id != -1) {
             Toast.makeText(this, "Usuário Logado com Sucesso!", Toast.LENGTH_SHORT).show()
 
+            SESSION_LOGIN = true
+            ID_STORE = id
+
             val intent = Intent(this, StoreProductsActivity::class.java).apply {
                 putExtra(EXTRA, id)
             }

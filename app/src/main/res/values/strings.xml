@@ -131,4 +131,6 @@
         cadastrados no On Price App.
     </string>
 
+    <string name="logout">Sair</string>
+
 </resources>

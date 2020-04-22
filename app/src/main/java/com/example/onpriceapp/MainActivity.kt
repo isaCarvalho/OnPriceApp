@@ -8,6 +8,9 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 
+var SESSION_LOGIN = false
+var ID_STORE = 0
+
 class MainActivity : AppCompatActivity() {
 
     var cardStore : ImageView? = null
@@ -23,8 +26,7 @@ class MainActivity : AppCompatActivity() {
         cardStore = findViewById(R.id.cardStoreImage)
 
         cardStore!!.setOnClickListener {
-            val intent = Intent(this, StoreLoginActivity::class.java)
-            startActivity(intent)
+            openLogin()
         }
 
         createAccountButton = findViewById(R.id.createAccountButton)
@@ -37,8 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         loginMain = findViewById(R.id.loginMain)
         loginMain!!.setOnClickListener {
-            val intent = Intent(this, StoreLoginActivity::class.java)
-            startActivity(intent)
+            openLogin()
         }
 
         cardProduct = findViewById(R.id.cardProductImage)
@@ -69,6 +70,22 @@ class MainActivity : AppCompatActivity() {
             }
 
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun openLogin()
+    {
+        if (SESSION_LOGIN)
+        {
+            val intent = Intent(this, StoreProductsActivity::class.java).apply {
+                putExtra(EXTRA, ID_STORE)
+            }
+            startActivity(intent)
+        }
+        else
+        {
+            val intent = Intent(this, StoreLoginActivity::class.java)
+            startActivity(intent)
         }
     }
 }

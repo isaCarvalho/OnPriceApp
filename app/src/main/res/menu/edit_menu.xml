@@ -16,4 +16,7 @@
         android:id="@+id/delete"
         android:icon="@mipmap/ic_delete_background"
         android:title="@string/delete_account"/>
+    <item
+        android:id="@+id/logout"
+        android:title="@string/logout" />
 </menu>

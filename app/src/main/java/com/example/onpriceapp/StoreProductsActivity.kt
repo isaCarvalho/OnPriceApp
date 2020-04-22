@@ -97,12 +97,25 @@ class StoreProductsActivity : AppCompatActivity() {
                 if (StoreController(this).delete(id)) {
                     Toast.makeText(this, "Conta deletada com sucessso!", Toast.LENGTH_SHORT).show()
 
+                    SESSION_LOGIN = false
+                    ID_STORE = -1
+
                     startActivity(Intent(this, StoreLoginActivity::class.java))
                 }
                 else
                     Toast.makeText(this, "Não foi possível deletar a conta!", Toast.LENGTH_SHORT).show()
                 true
             }
+
+            R.id.logout ->
+            {
+                SESSION_LOGIN = false
+                ID_STORE = -1
+
+                finish()
+                true
+            }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
