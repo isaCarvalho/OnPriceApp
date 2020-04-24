@@ -1,10 +1,14 @@
 package com.example.onpriceapp
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
-import com.example.onpriceapp.controller.ProductController
+import com.example.onpriceapp.api.APIController
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.lang.Exception
+import java.security.spec.ECField
 
 class CreateProductActivity : AppCompatActivity() {
 
@@ -54,17 +58,30 @@ class CreateProductActivity : AppCompatActivity() {
 
             if (!update)
             {
-                if (ProductController(this).insert(name, category, price, stamp, qt, unity, store_id))
+                try {
+                    GlobalScope.launch(Dispatchers.IO) {
+                        api.insertProduct(name, category, price, stamp, qt, unity, store_id)
+                    }
+
                     Toast.makeText(this, "Produto criado com sucesso!", Toast.LENGTH_SHORT).show()
-                else
-                    Toast.makeText(this, "Não foi possível criar o produto!", Toast.LENGTH_SHORT).show()
+                }
+                catch (e: Exception) {
+                    Toast.makeText(this, "Não foi possível criar o produto!", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
             else
             {
-                if (ProductController(this).update(product_id, name, category, price, stamp, qt, unity))
+                try {
+                    GlobalScope.launch(Dispatchers.IO) {
+                        api.updateProduct(id, name, category, price, stamp, qt, unity)
+                    }
+
                     Toast.makeText(this, "Produto editado com sucesso!", Toast.LENGTH_SHORT).show()
-                else
-                    Toast.makeText(this, "Não foi possível editar o produto!", Toast.LENGTH_SHORT).show()
+                } catch (e: Exception) {
+                    Toast.makeText(this, "Não foi possível editar o produto!", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
 
             finish()

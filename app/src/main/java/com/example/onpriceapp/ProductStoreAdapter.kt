@@ -11,8 +11,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.onpriceapp.controller.ProductController
+import com.example.onpriceapp.api.APIController
 import com.example.onpriceapp.model.Product
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import retrofit2.await
 
 class ProductStoreAdapter(private var myDataset : ArrayList<Product>, private val store_id: Int) :
     RecyclerView.Adapter<ProductStoreAdapter.MyViewHolder>(), Filterable
@@ -46,9 +50,20 @@ class ProductStoreAdapter(private var myDataset : ArrayList<Product>, private va
         holder.imageDelete.setOnClickListener{v ->
             val product = myDataset[position]
 
-            ProductController(v.context).delete(product.id)
+            GlobalScope.launch(Dispatchers.IO) {
+                api.deleteProduct(myDataset[position].id)
+            }
 
-            myDataset = ProductController(v.context).list(store_id)
+            val products = ArrayList<Product>()
+
+            GlobalScope.launch(Dispatchers.IO) {
+                val response = api.listProducts(ID_STORE).await()
+
+                for (product in response)
+                    products.add(product)
+            }
+
+            myDataset = products
             notifyDataSetChanged()
         }
 

@@ -11,7 +11,6 @@ import android.widget.Filterable
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.onpriceapp.model.Product
 import com.example.onpriceapp.model.Store
 
 class StoreAdapter(private var myDataset : ArrayList<Store>) :
@@ -37,8 +36,8 @@ class StoreAdapter(private var myDataset : ArrayList<Store>) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.name.text = myDataset[position].name
         holder.address.text = "Rua ${myDataset[position].street}, Nº ${myDataset[position].number}" +
-                ", Bairro ${myDataset[position].neightborhood} - ${myDataset[position].city}"
-        holder.time.text = "Aberto até: ${myDataset[position].timeZone}"
+                ", Bairro ${myDataset[position].bairro} - ${myDataset[position].city}"
+        holder.time.text = "Aberto até: ${myDataset[position].time}"
 
         holder.buttonOpen.setOnClickListener {v ->
             val intent = Intent(v.context, ProductsActivity::class.java).apply {

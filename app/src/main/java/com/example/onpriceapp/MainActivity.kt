@@ -7,6 +7,11 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
+import com.example.onpriceapp.api.API
+import com.example.onpriceapp.api.APIController
+
+
+val api = APIController.getRetrofitInstance().create(API::class.java)
 
 var SESSION_LOGIN = false
 var ID_STORE = 0

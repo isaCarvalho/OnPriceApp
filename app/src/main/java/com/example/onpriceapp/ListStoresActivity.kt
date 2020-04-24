@@ -6,7 +6,11 @@ import android.view.Menu
 import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.onpriceapp.controller.StoreController
+import com.example.onpriceapp.model.Store
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import retrofit2.await
 
 class ListStoresActivity : AppCompatActivity() {
 
@@ -18,8 +22,17 @@ class ListStoresActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_stores)
 
+        val stores = ArrayList<Store>()
+
+        GlobalScope.launch(Dispatchers.IO) {
+            val response = api.listStores().await()
+
+            for (store in response)
+                stores.add(store)
+        }
+
         viewManager = LinearLayoutManager(this)
-        viewAdapter = StoreAdapter(StoreController(this).list())
+        viewAdapter = StoreAdapter(stores)
 
         recyclerView = findViewById<RecyclerView>(R.id.storeList).apply {
             setHasFixedSize(true)

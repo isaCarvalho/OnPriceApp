@@ -3,7 +3,11 @@ package com.example.onpriceapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
-import com.example.onpriceapp.controller.StoreController
+import com.example.onpriceapp.api.APIController
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class CreateAccountActivity : AppCompatActivity() {
 
@@ -56,28 +60,35 @@ class CreateAccountActivity : AppCompatActivity() {
 
             if (!update)
             {
-                if (StoreController(this).createAccount(
-                        name, password, cnpj, street, number, bairro,
-                        city, uf, time
-                    )
-                )
+                try
                 {
+                    GlobalScope.launch(Dispatchers.IO) {
+                        api.insertStore(name, password, cnpj, street, number, bairro,
+                            city, uf, time)
+                    }
                     Toast.makeText(this, "Conta criada com sucesso!", Toast.LENGTH_SHORT).show()
 
                     finish()
-                } else
-                    Toast.makeText(this, "Não foi possível criar a conta!", Toast.LENGTH_SHORT).show()
+                } catch (e: Exception) {
+                    Toast.makeText(this, "Não foi possível criar a conta!", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
             else
             {
-                if (StoreController(this).update(id, name, password, cnpj, street, number, bairro,
-                        city, "RJ", time))
-                {
+                try {
+                    GlobalScope.launch(Dispatchers.IO) {
+                        api.updateStore(id, name, password, cnpj, street, number,
+                            bairro, city, uf, time)
+                    }
+
                     Toast.makeText(this, "Dados atualizados com sucesso!", Toast.LENGTH_SHORT).show()
 
                     finish()
-                } else
-                    Toast.makeText(this, "Não foi possível atualizar os dados!", Toast.LENGTH_SHORT).show()
+                } catch (e: Exception) {
+                    Toast.makeText(this, "Não foi possível atualizar os dados!", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
         }
         else

@@ -3,13 +3,15 @@ package com.example.onpriceapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.example.onpriceapp.controller.StoreController
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import retrofit2.await
 
 class StoreLoginActivity : AppCompatActivity() {
 
@@ -51,7 +53,12 @@ class StoreLoginActivity : AppCompatActivity() {
         val name = findViewById<EditText>(R.id.userNameEditTxt).text.toString()
         val password = findViewById<EditText>(R.id.password).text.toString()
 
-        val id = StoreController(this).login(name, password)
+        var id = 0
+
+        GlobalScope.launch(Dispatchers.IO) {
+            val store = api.login(name, password).await()
+            id = store.id
+        }
 
         if (id != -1) {
             Toast.makeText(this, "Usuário Logado com Sucesso!", Toast.LENGTH_SHORT).show()
@@ -59,10 +66,7 @@ class StoreLoginActivity : AppCompatActivity() {
             SESSION_LOGIN = true
             ID_STORE = id
 
-            val intent = Intent(this, StoreProductsActivity::class.java).apply {
-                putExtra(EXTRA, id)
-            }
-            startActivity(intent)
+            startActivity(Intent(this, StoreProductsActivity::class.java))
         }
         else
             Toast.makeText(this, "Nome de usuário ou senha incorretos!", Toast.LENGTH_SHORT).show()

@@ -6,7 +6,12 @@ import android.view.Menu
 import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.onpriceapp.controller.ProductController
+import com.example.onpriceapp.api.APIController
+import com.example.onpriceapp.model.Product
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import retrofit2.await
 
 class ProductsActivity : AppCompatActivity() {
 
@@ -22,8 +27,17 @@ class ProductsActivity : AppCompatActivity() {
 
         id_store = intent.getIntExtra(EXTRA, -1)
 
+        val products = ArrayList<Product>()
+
+        GlobalScope.launch(Dispatchers.IO) {
+            val response = api.listProducts(id_store).await()
+
+            for (product in response)
+                products.add(product)
+        }
+
         viewManager = LinearLayoutManager(this)
-        viewAdapter = ListProductsAdapter(ProductController(this).list(id_store))
+        viewAdapter = ListProductsAdapter(products)
 
         recyclerView = findViewById<RecyclerView>(R.id.productsListRecycler).apply {
             setHasFixedSize(true)
