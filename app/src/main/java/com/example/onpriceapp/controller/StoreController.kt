@@ -1,13 +1,13 @@
 package com.example.onpriceapp.controller
 
 import android.content.Context
-import com.example.onpriceapp.database.DatabaseController
+import com.example.onpriceapp.api.APIController
 import com.example.onpriceapp.model.Store
 import java.lang.Exception
 
-class StoreController(context: Context) {
+class StoreController(private val context : Context) {
 
-    val dbController = DatabaseController(context)
+    val dbController = APIController(context)
 
     fun login(name : String, password: String) : Int
     {

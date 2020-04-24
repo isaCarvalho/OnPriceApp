@@ -1,13 +1,13 @@
 package com.example.onpriceapp.controller
 
 import android.content.Context
-import com.example.onpriceapp.database.DatabaseController
+import com.example.onpriceapp.api.APIController
 import com.example.onpriceapp.model.Product
 import java.lang.Exception
 
-class ProductController(context : Context)
+class ProductController(private val context : Context)
 {
-    var dbController = DatabaseController(context)
+    var dbController = APIController(context)
 
     fun insert(name : String, category : String, price : String, stamp : String,
                       quantity : Int, unity : String, store_id : Int) : Boolean

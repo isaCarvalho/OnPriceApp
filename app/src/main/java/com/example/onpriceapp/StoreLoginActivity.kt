@@ -3,6 +3,7 @@ package com.example.onpriceapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -51,6 +52,7 @@ class StoreLoginActivity : AppCompatActivity() {
         val password = findViewById<EditText>(R.id.password).text.toString()
 
         val id = StoreController(this).login(name, password)
+
         if (id != -1) {
             Toast.makeText(this, "Usuário Logado com Sucesso!", Toast.LENGTH_SHORT).show()
 
