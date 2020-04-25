@@ -1,4 +1,4 @@
-package com.example.onpriceapp
+package com.example.onpriceapp.adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -9,16 +9,14 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.onpriceapp.api.APIController
+import com.example.onpriceapp.*
 import com.example.onpriceapp.model.Product
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import retrofit2.await
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class ProductStoreAdapter(private var myDataset : ArrayList<Product>, private val store_id: Int) :
+class ProductStoreAdapter(private var myDataset : ArrayList<Product>, private val id_store: Int) :
     RecyclerView.Adapter<ProductStoreAdapter.MyViewHolder>(), Filterable
 {
     private val listCopy = ArrayList<Product>(myDataset.toMutableList())
@@ -47,36 +45,28 @@ class ProductStoreAdapter(private var myDataset : ArrayList<Product>, private va
         holder.priceTxt.text = myDataset[position].price
         holder.qtUnityTxt.text = "${myDataset[position].qt} ${myDataset[position].unit}"
 
-        holder.imageDelete.setOnClickListener{v ->
-            val product = myDataset[position]
-
-            GlobalScope.launch(Dispatchers.IO) {
-                api.deleteProduct(myDataset[position].id)
-            }
-
-            val products = ArrayList<Product>()
-
-            GlobalScope.launch(Dispatchers.IO) {
-                val response = api.listProducts(ID_STORE).await()
-
-                for (product in response)
-                    products.add(product)
-            }
-
-            myDataset = products
-            notifyDataSetChanged()
-        }
-
-        holder.imageEdit.setOnClickListener{v ->
-            val product = myDataset[position]
-            val array = arrayOf<String>(product.id.toString(), product.name, product.unit, product.qt.toString(), product.price, product.stamp, store_id.toString())
+        holder.imageEdit.setOnClickListener {v ->
+            val array = arrayOf(
+                myDataset[position].id.toString(),
+                myDataset[position].name,
+                myDataset[position].stamp,
+                myDataset[position].price,
+                myDataset[position].qt.toString(),
+                myDataset[position].unit,
+                myDataset[position].id_store.toString()
+            )
 
             val intent = Intent(v.context, CreateProductActivity::class.java).apply {
-                putExtra(EXTRA, array);
+                putExtra(EXTRA, array)
+                putExtra(EXTRA, myDataset[position].id_store)
             }
-
-            startActivity(v.context, intent, null)
         }
+
+        holder.imageDelete.setOnClickListener {
+            api.deleteProduct(myDataset[position].id)
+        }
+
+        getProducts(id_store)
     }
 
     override fun getItemCount(): Int = myDataset.size
@@ -112,5 +102,24 @@ class ProductStoreAdapter(private var myDataset : ArrayList<Product>, private va
                 notifyDataSetChanged()
             }
         }
+    }
+
+    private fun getProducts(id_store: Int) {
+        api.listProducts(id_store).enqueue(object : Callback<List<Product>> {
+            override fun onFailure(call: Call<List<Product>>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
+                val products = ArrayList<Product>()
+
+                response.body()!!.forEach { product ->
+                    products.add(product)
+                }
+
+                myDataset = products
+                notifyDataSetChanged()
+            }
+        })
     }
 }

@@ -3,7 +3,6 @@ package com.example.onpriceapp.api
 import com.example.onpriceapp.model.Product
 import com.example.onpriceapp.model.Store
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.*
 
 /**
@@ -43,7 +42,7 @@ interface API
     fun login(@Query("name") name : String, @Query("password") password: String) : Call<Store>
 
     @GET("stores")
-    fun getStore(@Query("id") id : Int) : Call<Store>
+    fun getStore(@Query("id") id : Int) : Call<List<Store>>
 
     @PUT("stores")
     @FormUrlEncoded
@@ -72,6 +71,6 @@ interface API
     suspend fun deleteStore(@Query("id") id : Int)
 
     @DELETE("products")
-    suspend fun deleteProduct(@Query("id") id : Int)
+    fun deleteProduct(@Query("id") id : Int)
 
 }

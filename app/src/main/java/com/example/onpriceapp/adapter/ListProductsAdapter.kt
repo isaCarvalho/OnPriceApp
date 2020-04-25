@@ -1,4 +1,4 @@
-package com.example.onpriceapp
+package com.example.onpriceapp.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.onpriceapp.R
 import com.example.onpriceapp.model.Product
 
 class ListProductsAdapter(private var myDataset : ArrayList<Product>)

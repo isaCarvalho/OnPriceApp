@@ -3,15 +3,16 @@ package com.example.onpriceapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import retrofit2.await
+import com.example.onpriceapp.model.Store
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class StoreLoginActivity : AppCompatActivity() {
 
@@ -55,20 +56,29 @@ class StoreLoginActivity : AppCompatActivity() {
 
         var id = 0
 
-        GlobalScope.launch(Dispatchers.IO) {
-            val store = api.login(name, password).await()
-            id = store.id
-        }
+        api.login(name, password).enqueue(object : Callback<Store> {
+            override fun onFailure(call: Call<Store>, t: Throwable) {
+                Log.e(ERROR, call.toString())
+            }
 
-        if (id != -1) {
-            Toast.makeText(this, "Usuário Logado com Sucesso!", Toast.LENGTH_SHORT).show()
+            override fun onResponse(call: Call<Store>, response: Response<Store>) {
+                val store = response.body()!!
+                Log.e(ERROR, store.toString())
 
-            SESSION_LOGIN = true
-            ID_STORE = id
+                id = store.id
+                Log.e("ID", id.toString())
 
-            startActivity(Intent(this, StoreProductsActivity::class.java))
-        }
-        else
-            Toast.makeText(this, "Nome de usuário ou senha incorretos!", Toast.LENGTH_SHORT).show()
+                if (id != 0) {
+                    Toast.makeText(this@StoreLoginActivity, "Usuário Logado com Sucesso!", Toast.LENGTH_SHORT).show()
+
+                    SESSION_LOGIN = true
+                    ID_STORE = id
+
+                    startActivity(Intent(this@StoreLoginActivity, StoreProductsActivity::class.java))
+                }
+                else
+                    Toast.makeText(this@StoreLoginActivity, "Nome de usuário ou senha incorretos!", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }

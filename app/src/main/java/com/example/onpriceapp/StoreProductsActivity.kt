@@ -3,67 +3,62 @@ package com.example.onpriceapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.onpriceapp.adapter.ProductStoreAdapter
 import com.example.onpriceapp.model.Product
 import com.example.onpriceapp.model.Store
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import retrofit2.await
-import java.lang.Exception
-
-const val EXTRA = "com.example.onpriceapp.MESSAGE"
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class StoreProductsActivity : AppCompatActivity() {
 
     var fab : FloatingActionButton? = null
-    private var id : Int = 0
     private var store : Store? = null
 
     var viewManager : LinearLayoutManager? = null
     private lateinit var viewAdapter: ProductStoreAdapter
     private lateinit var recyclerView: RecyclerView
 
+    init {
+        api.getStore(ID_STORE).enqueue(object : Callback<List<Store>> {
+            override fun onFailure(call: Call<List<Store>>, t: Throwable) {
+                Log.e(ERROR, call.toString())
+            }
+
+            override fun onResponse(call: Call<List<Store>>, response: Response<List<Store>>) {
+                store = response.body()!![0]
+                Log.d("STORE: ", store.toString())
+            }
+        })
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_store_products)
 
-        GlobalScope.launch(Dispatchers.IO) {
-            val response = api.getStore(id).await()
-            store = response
-        }
-
-        val products = ArrayList<Product>()
-
-        GlobalScope.launch(Dispatchers.IO) {
-            val response = api.listProducts(ID_STORE).await()
-
-            for (product in response)
-                products.add(product)
-        }
-
         viewManager = LinearLayoutManager(this)
-        viewAdapter = ProductStoreAdapter(products, ID_STORE)
 
         recyclerView = findViewById<RecyclerView>(R.id.productsStoreList).apply {
             setHasFixedSize(true)
-
             layoutManager = viewManager
-            adapter = viewAdapter
         }
+
+        getProducts(ID_STORE)
 
         fab = findViewById(R.id.fabInsert)
 
         fab!!.setOnClickListener {
             val intent = Intent(this, CreateProductActivity::class.java).apply {
-                putExtra(EXTRA, id)
+                putExtra(EXTRA, ID_STORE)
             }
             startActivity(intent)
         }
@@ -98,7 +93,7 @@ class StoreProductsActivity : AppCompatActivity() {
         {
             R.id.edit -> {
                 val array = arrayOf(store!!.id.toString(), store!!.name, store!!.password, store!!.cnpj,
-                    store!!.street, store!!.number.toString(), store!!.bairro, store!!.city, store!!.time)
+                    store!!.street, store!!.number, store!!.bairro, store!!.city, store!!.time)
 
                 val intent = Intent(this, CreateAccountActivity::class.java).apply {
                     putExtra(EXTRA, array)
@@ -110,19 +105,6 @@ class StoreProductsActivity : AppCompatActivity() {
 
             R.id.delete ->
             {
-                try
-                {
-                    GlobalScope.launch(Dispatchers.IO) {
-                        api.deleteStore(id)
-                    }
-
-                    Toast.makeText(this, "Conta deletada!", Toast.LENGTH_SHORT).show()
-
-                    finish()
-                } catch (e: Exception) {
-                    Toast.makeText(this, "Não foi possível deletar a conta!", Toast.LENGTH_SHORT)
-                        .show()
-                }
                 true
             }
 
@@ -137,5 +119,25 @@ class StoreProductsActivity : AppCompatActivity() {
 
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun getProducts(id_store: Int)
+    {
+        api.listProducts(id_store).enqueue(object: Callback<List<Product>> {
+            override fun onFailure(call: Call<List<Product>>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
+                val products = ArrayList<Product>()
+
+                response.body()!!.forEach {product ->
+                    products.add(product)
+                }
+
+                viewAdapter = ProductStoreAdapter(products, id_store)
+                recyclerView.adapter = viewAdapter
+            }
+        })
     }
 }

@@ -6,12 +6,11 @@ import android.view.Menu
 import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.onpriceapp.api.APIController
+import com.example.onpriceapp.adapter.ListProductsAdapter
 import com.example.onpriceapp.model.Product
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import retrofit2.await
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ProductsActivity : AppCompatActivity() {
 
@@ -19,32 +18,22 @@ class ProductsActivity : AppCompatActivity() {
     private lateinit var viewAdapter: ListProductsAdapter
     private lateinit var recyclerView: RecyclerView
 
-    var id_store : Int = 0
+    private var idStore : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_products)
         super.onCreate(savedInstanceState)
 
-        id_store = intent.getIntExtra(EXTRA, -1)
-
-        val products = ArrayList<Product>()
-
-        GlobalScope.launch(Dispatchers.IO) {
-            val response = api.listProducts(id_store).await()
-
-            for (product in response)
-                products.add(product)
-        }
+        idStore = intent.getIntExtra(EXTRA, -1)
 
         viewManager = LinearLayoutManager(this)
-        viewAdapter = ListProductsAdapter(products)
 
         recyclerView = findViewById<RecyclerView>(R.id.productsListRecycler).apply {
             setHasFixedSize(true)
-
             layoutManager = viewManager
-            adapter = viewAdapter
         }
+
+        getProducts(idStore)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -65,5 +54,25 @@ class ProductsActivity : AppCompatActivity() {
         })
 
         return true
+    }
+
+    private fun getProducts(id_store: Int)
+    {
+        api.listProducts(id_store).enqueue(object: Callback<List<Product>> {
+            override fun onFailure(call: Call<List<Product>>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
+                val products = ArrayList<Product>()
+
+                response.body()!!.forEach { product ->
+                    products.add(product)
+                }
+
+                viewAdapter = ListProductsAdapter(products)
+                recyclerView.adapter = viewAdapter
+            }
+        })
     }
 }

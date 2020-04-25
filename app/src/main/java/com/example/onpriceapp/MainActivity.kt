@@ -10,6 +10,8 @@ import android.widget.ImageView
 import com.example.onpriceapp.api.API
 import com.example.onpriceapp.api.APIController
 
+const val ERROR = "Error: "
+const val EXTRA = "com.example.onpriceapp.MESSAGE"
 
 val api = APIController.getRetrofitInstance().create(API::class.java)
 

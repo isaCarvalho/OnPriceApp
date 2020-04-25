@@ -1,4 +1,4 @@
-package com.example.onpriceapp
+package com.example.onpriceapp.adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -11,6 +11,9 @@ import android.widget.Filterable
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.onpriceapp.EXTRA
+import com.example.onpriceapp.ProductsActivity
+import com.example.onpriceapp.R
 import com.example.onpriceapp.model.Store
 
 class StoreAdapter(private var myDataset : ArrayList<Store>) :

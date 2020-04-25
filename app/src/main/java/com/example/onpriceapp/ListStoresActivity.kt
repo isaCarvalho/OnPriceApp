@@ -2,15 +2,16 @@ package com.example.onpriceapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.onpriceapp.adapter.StoreAdapter
 import com.example.onpriceapp.model.Store
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import retrofit2.await
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ListStoresActivity : AppCompatActivity() {
 
@@ -22,24 +23,14 @@ class ListStoresActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_stores)
 
-        val stores = ArrayList<Store>()
-
-        GlobalScope.launch(Dispatchers.IO) {
-            val response = api.listStores().await()
-
-            for (store in response)
-                stores.add(store)
-        }
-
         viewManager = LinearLayoutManager(this)
-        viewAdapter = StoreAdapter(stores)
 
         recyclerView = findViewById<RecyclerView>(R.id.storeList).apply {
             setHasFixedSize(true)
-
             layoutManager = viewManager
-            adapter = viewAdapter
         }
+
+        getStores()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -60,5 +51,26 @@ class ListStoresActivity : AppCompatActivity() {
         })
 
         return true
+    }
+
+    private fun getStores()
+    {
+        api.listStores().enqueue(object : Callback<List<Store>> {
+            override fun onFailure(call: Call<List<Store>>, t: Throwable) {
+                Log.e("ERRO: ", call.toString())
+            }
+
+            override fun onResponse(call: Call<List<Store>>, response: Response<List<Store>>) {
+                val stores = ArrayList<Store>()
+
+                response.body()!!.forEach { store ->
+                    stores.add(store)
+                }
+
+                viewAdapter = StoreAdapter(stores)
+                recyclerView.adapter = viewAdapter
+            }
+        })
+
     }
 }
