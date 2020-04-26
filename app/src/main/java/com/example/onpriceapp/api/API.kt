@@ -11,26 +11,11 @@ import retrofit2.http.*
 interface API
 {
     @POST("stores")
-    @FormUrlEncoded
-    fun insertStore(@Field("name") name : String,
-                            @Field("password") password : String,
-                            @Field("cnpj") cnpj : String,
-                            @Field("street") street : String,
-                            @Field("number") number : String,
-                            @Field("bairro") bairro : String,
-                            @Field("city") city : String,
-                            @Field("uf") uf : String,
-                            @Field("time") time : String) : Call<String>
+    fun insertStore(@Body store: Store) : Call<String>
 
     @POST("products")
     @FormUrlEncoded
-    fun insertProduct(@Field("name") name : String,
-                              @Field("category") category : String,
-                              @Field("price") price : String,
-                              @Field("stamp") stamp : String,
-                              @Field("qt") qt : Int,
-                              @Field("unity")unity : String,
-                              @Field("id_store") store_id : Int) : Call<String>
+    fun insertProduct(@Body product: Product) : Call<String>
 
     @GET("stores")
     fun listStores() : Call<List<Store>>
@@ -46,26 +31,11 @@ interface API
 
     @PUT("stores")
     @FormUrlEncoded
-    fun updateStore(@Query("id") id : Int,
-                            @Field("name") name : String,
-                            @Field("password") password : String,
-                            @Field("cnpj") cnpj : String,
-                            @Field("street") street : String,
-                            @Field("number") number : String,
-                            @Field("bairro") bairro : String,
-                            @Field("city") city : String,
-                            @Field("uf") uf : String,
-                            @Field("time") time : String) : Call<String>
+    fun updateStore(@Query("id") id : Int, @Body store: Store) : Call<String>
 
     @PUT("products")
     @FormUrlEncoded
-    fun updateProduct(@Query("id") id: Int,
-                              @Field("name") name : String,
-                              @Field("category") category : String,
-                              @Field("price") price : String,
-                              @Field("stamp") stamp : String,
-                              @Field("qt") qt : Int,
-                              @Field("unity")unity : String) : Call<String>
+    fun updateProduct(@Query("id") id: Int, @Body product: Product) : Call<String>
 
     @DELETE("stores")
     fun deleteStore(@Query("id") id : Int) : Call<String>

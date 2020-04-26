@@ -3,7 +3,6 @@ package com.example.onpriceapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -58,18 +57,12 @@ class StoreLoginActivity : AppCompatActivity() {
 
         api.login(name, password).enqueue(object : Callback<Store> {
             override fun onFailure(call: Call<Store>, t: Throwable) {
-                Log.e(ERROR, call.toString())
+                Toast.makeText(this@StoreLoginActivity, "Ocorreu um erro ao fazer o login", Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(call: Call<Store>, response: Response<Store>) {
                 if (response.body() != null)
-                {
-                    val store = response.body()!!
-                    Log.e(ERROR, store.toString())
-
-                    id = store.id
-                    Log.e("ID", id.toString())
-                }
+                    id = response.body()!!.id
 
                 if (id != 0) {
                     Toast.makeText(this@StoreLoginActivity, "Usuário Logado com Sucesso!", Toast.LENGTH_SHORT).show()

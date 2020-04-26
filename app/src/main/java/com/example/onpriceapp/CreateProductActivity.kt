@@ -3,10 +3,10 @@ package com.example.onpriceapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.lang.Exception
+import com.example.onpriceapp.model.Product
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CreateProductActivity : AppCompatActivity() {
 
@@ -56,40 +56,42 @@ class CreateProductActivity : AppCompatActivity() {
 
             if (!update)
             {
-                try {
-                    GlobalScope.launch(Dispatchers.IO) {
-                        api.insertProduct(name, category, price, stamp, qt, unity, store_id)
+                val product = Product(-1, name, category, price, stamp, qt, unity, store_id)
+
+                api.insertProduct(product).enqueue(object : Callback<String> {
+                    override fun onFailure(call: Call<String>, t: Throwable) {
+                        Toast.makeText(this@CreateProductActivity, "Não foi possível criar o produto!", Toast.LENGTH_SHORT)
+                            .show()
                     }
 
-                    Toast.makeText(this, "Produto criado com sucesso!", Toast.LENGTH_SHORT).show()
-                }
-                catch (e: Exception) {
-                    Toast.makeText(this, "Não foi possível criar o produto!", Toast.LENGTH_SHORT)
-                        .show()
-                }
+                    override fun onResponse(call: Call<String>, response: Response<String>) {
+                        Toast.makeText(this@CreateProductActivity, "Produto criado com sucesso!", Toast.LENGTH_SHORT).show()
+
+                        finish()
+                    }
+                })
             }
             else
             {
-                try {
-                    GlobalScope.launch(Dispatchers.IO) {
-                        api.updateProduct(id, name, category, price, stamp, qt, unity)
+                val product = Product(id, name, category, price, stamp, qt, unity, store_id)
+
+                api.updateProduct(id, product).enqueue(object : Callback<String> {
+                    override fun onFailure(call: Call<String>, t: Throwable) {
+                        Toast.makeText(this@CreateProductActivity, "Não foi possível editar o produto!", Toast.LENGTH_SHORT)
+                            .show()
                     }
 
-                    Toast.makeText(this, "Produto editado com sucesso!", Toast.LENGTH_SHORT).show()
-                } catch (e: Exception) {
-                    Toast.makeText(this, "Não foi possível editar o produto!", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
+                    override fun onResponse(call: Call<String>, response: Response<String>) {
+                        Toast.makeText(this@CreateProductActivity, "Produto editado com sucesso!", Toast.LENGTH_SHORT).show()
 
-            finish()
+                        finish()
+                    }
+                })
+            }
         }
         else
             Toast.makeText(this, "Todos os campos são obrigatórios!", Toast.LENGTH_SHORT).show()
     }
 
-    private fun validate(field : String) : Boolean
-    {
-        return field.isNotEmpty();
-    }
+    private fun validate(field : String) : Boolean = field.isNotEmpty()
 }

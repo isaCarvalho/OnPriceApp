@@ -117,13 +117,15 @@ class StoreProductsActivity : AppCompatActivity() {
 
                         Toast.makeText(this@StoreProductsActivity, "Não foi possível deletar a conta!",
                             Toast.LENGTH_SHORT).show()
+
+                        finish()
                     }
 
                     override fun onResponse(call: Call<String>, response: Response<String>) {
-                        Log.d("DELETE", call.toString())
-                        if (response.isSuccessful)
-                            Toast.makeText(this@StoreProductsActivity, "Conta deletada!", Toast.LENGTH_SHORT)
-                                .show()
+                        Toast.makeText(this@StoreProductsActivity, "Conta deletada!", Toast.LENGTH_SHORT)
+                            .show()
+
+                        finish()
                     }
                 })
                 true

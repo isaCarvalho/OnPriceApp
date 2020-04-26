@@ -3,11 +3,10 @@ package com.example.onpriceapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
-import com.example.onpriceapp.api.APIController
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.lang.Exception
+import com.example.onpriceapp.model.Store
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CreateAccountActivity : AppCompatActivity() {
 
@@ -60,43 +59,46 @@ class CreateAccountActivity : AppCompatActivity() {
 
             if (!update)
             {
-                try
-                {
-                    GlobalScope.launch(Dispatchers.IO) {
-                        api.insertStore(name, password, cnpj, street, number, bairro,
-                            city, uf, time)
-                    }
-                    Toast.makeText(this, "Conta criada com sucesso!", Toast.LENGTH_SHORT).show()
+                val store = Store(-1, name, password, cnpj, street, number, bairro, city, uf, time)
 
-                    finish()
-                } catch (e: Exception) {
-                    Toast.makeText(this, "Não foi possível criar a conta!", Toast.LENGTH_SHORT)
-                        .show()
-                }
+                api.insertStore(store).enqueue(object : Callback<String> {
+                    override fun onFailure(call: Call<String>, t: Throwable) {
+                        Toast.makeText(this@CreateAccountActivity,
+                            "Conta criada com sucesso!", Toast.LENGTH_SHORT).show()
+
+                        finish()
+                    }
+
+                    override fun onResponse(call: Call<String>, response: Response<String>) {
+                        Toast.makeText(this@CreateAccountActivity,
+                            "Não foi possível criar a conta!", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                })
             }
             else
             {
-                try {
-                    GlobalScope.launch(Dispatchers.IO) {
-                        api.updateStore(id, name, password, cnpj, street, number,
-                            bairro, city, uf, time)
+                val store = Store(id, name, password, cnpj, street, number, bairro, city, uf, time)
+
+                api.updateStore(id, store).enqueue(object : Callback<String> {
+                    override fun onFailure(call: Call<String>, t: Throwable) {
+                        Toast.makeText(this@CreateAccountActivity,
+                            "Não foi possível atualizar os dados!", Toast.LENGTH_SHORT)
+                            .show()
                     }
 
-                    Toast.makeText(this, "Dados atualizados com sucesso!", Toast.LENGTH_SHORT).show()
+                    override fun onResponse(call: Call<String>, response: Response<String>) {
+                        Toast.makeText(this@CreateAccountActivity,
+                            "Dados atualizados com sucesso!", Toast.LENGTH_SHORT).show()
 
-                    finish()
-                } catch (e: Exception) {
-                    Toast.makeText(this, "Não foi possível atualizar os dados!", Toast.LENGTH_SHORT)
-                        .show()
-                }
+                        finish()
+                    }
+                })
             }
         }
         else
             Toast.makeText(this, "Todos os campos são obrigatórios!", Toast.LENGTH_SHORT).show()
     }
 
-    private fun validate(field : String) : Boolean
-    {
-        return !field.isEmpty()
-    }
+    private fun validate(field : String) : Boolean = field.isNotEmpty()
 }

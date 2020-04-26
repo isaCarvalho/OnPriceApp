@@ -2,7 +2,6 @@ package com.example.onpriceapp.adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,8 @@ import com.example.onpriceapp.model.Product
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ProductStoreAdapter(private var myDataset : ArrayList<Product>, private val id_store: Int) :
     RecyclerView.Adapter<ProductStoreAdapter.MyViewHolder>(), Filterable
@@ -52,7 +53,7 @@ class ProductStoreAdapter(private var myDataset : ArrayList<Product>, private va
                 myDataset[position].price,
                 myDataset[position].qt.toString(),
                 myDataset[position].unit,
-                myDataset[position].id_store.toString()
+                id_store
             )
 
             val intent = Intent(v.context, CreateProductActivity::class.java).apply {
@@ -66,13 +67,11 @@ class ProductStoreAdapter(private var myDataset : ArrayList<Product>, private va
         holder.imageDelete.setOnClickListener {v ->
             api.deleteProduct(myDataset[position].id).enqueue(object : Callback<String> {
                 override fun onFailure(call: Call<String>, t: Throwable) {
-                    Log.e(ERROR, call.toString())
                     Toast.makeText(v.context, "Não foi possível deletar o produto!", Toast.LENGTH_SHORT)
                         .show()
                 }
 
                 override fun onResponse(call: Call<String>, response: Response<String>) {
-                    Log.d("DELETE", call.toString())
                     Toast.makeText(v.context, "Produto deletado!", Toast.LENGTH_SHORT)
                         .show()
 
@@ -95,10 +94,10 @@ class ProductStoreAdapter(private var myDataset : ArrayList<Product>, private va
                     listFilter.addAll(listCopy)
                 else
                 {
-                    val filterPattern = constraint.toString().toLowerCase().trim()
+                    val filterPattern = constraint.toString().toLowerCase(Locale.ROOT).trim()
 
                     listCopy.forEach { item ->
-                        if (item.name.toLowerCase().contains(filterPattern))
+                        if (item.name.toLowerCase(Locale.ROOT).contains(filterPattern))
                             listFilter.add(item)
                     }
                 }
