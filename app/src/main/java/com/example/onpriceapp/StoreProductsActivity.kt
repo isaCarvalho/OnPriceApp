@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.onpriceapp.adapter.ProductStoreAdapter
@@ -33,8 +34,13 @@ class StoreProductsActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<List<Store>>, response: Response<List<Store>>) {
-                store = response.body()!![0]
-                Log.d("STORE: ", store.toString())
+                if (response.body()!!.isNotEmpty())
+                {
+                    store = response.body()!![0]
+                    Log.d("STORE: ", store.toString())
+                }
+                else
+                    finish()
             }
         })
 
@@ -105,6 +111,21 @@ class StoreProductsActivity : AppCompatActivity() {
 
             R.id.delete ->
             {
+                api.deleteStore(store!!.id).enqueue(object : Callback<String> {
+                    override fun onFailure(call: Call<String>, t: Throwable) {
+                        Log.e(ERROR, call.toString())
+
+                        Toast.makeText(this@StoreProductsActivity, "Não foi possível deletar a conta!",
+                            Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onResponse(call: Call<String>, response: Response<String>) {
+                        Log.d("DELETE", call.toString())
+                        if (response.isSuccessful)
+                            Toast.makeText(this@StoreProductsActivity, "Conta deletada!", Toast.LENGTH_SHORT)
+                                .show()
+                    }
+                })
                 true
             }
 

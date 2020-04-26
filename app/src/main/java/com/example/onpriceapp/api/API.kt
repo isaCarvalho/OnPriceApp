@@ -12,7 +12,7 @@ interface API
 {
     @POST("stores")
     @FormUrlEncoded
-    suspend fun insertStore(@Field("name") name : String,
+    fun insertStore(@Field("name") name : String,
                             @Field("password") password : String,
                             @Field("cnpj") cnpj : String,
                             @Field("street") street : String,
@@ -20,17 +20,17 @@ interface API
                             @Field("bairro") bairro : String,
                             @Field("city") city : String,
                             @Field("uf") uf : String,
-                            @Field("time") time : String)
+                            @Field("time") time : String) : Call<String>
 
     @POST("products")
     @FormUrlEncoded
-    suspend fun insertProduct(@Field("name") name : String,
+    fun insertProduct(@Field("name") name : String,
                               @Field("category") category : String,
                               @Field("price") price : String,
                               @Field("stamp") stamp : String,
                               @Field("qt") qt : Int,
                               @Field("unity")unity : String,
-                              @Field("id_store") store_id : Int)
+                              @Field("id_store") store_id : Int) : Call<String>
 
     @GET("stores")
     fun listStores() : Call<List<Store>>
@@ -46,7 +46,7 @@ interface API
 
     @PUT("stores")
     @FormUrlEncoded
-    suspend fun updateStore(@Query("id") id : Int,
+    fun updateStore(@Query("id") id : Int,
                             @Field("name") name : String,
                             @Field("password") password : String,
                             @Field("cnpj") cnpj : String,
@@ -55,22 +55,22 @@ interface API
                             @Field("bairro") bairro : String,
                             @Field("city") city : String,
                             @Field("uf") uf : String,
-                            @Field("time") time : String)
+                            @Field("time") time : String) : Call<String>
 
     @PUT("products")
     @FormUrlEncoded
-    suspend fun updateProduct(@Query("id") id: Int,
+    fun updateProduct(@Query("id") id: Int,
                               @Field("name") name : String,
                               @Field("category") category : String,
                               @Field("price") price : String,
                               @Field("stamp") stamp : String,
                               @Field("qt") qt : Int,
-                              @Field("unity")unity : String)
+                              @Field("unity")unity : String) : Call<String>
 
     @DELETE("stores")
-    suspend fun deleteStore(@Query("id") id : Int)
+    fun deleteStore(@Query("id") id : Int) : Call<String>
 
     @DELETE("products")
-    fun deleteProduct(@Query("id") id : Int)
+    fun deleteProduct(@Query("id") id : Int) : Call<String>
 
 }

@@ -2,13 +2,12 @@ package com.example.onpriceapp.adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.onpriceapp.*
 import com.example.onpriceapp.model.Product
@@ -57,16 +56,31 @@ class ProductStoreAdapter(private var myDataset : ArrayList<Product>, private va
             )
 
             val intent = Intent(v.context, CreateProductActivity::class.java).apply {
-                putExtra(EXTRA, array)
                 putExtra(EXTRA, myDataset[position].id_store)
+                putExtra(EXTRA, array)
             }
+
+            startActivity(v.context, intent, null)
         }
 
-        holder.imageDelete.setOnClickListener {
-            api.deleteProduct(myDataset[position].id)
-        }
+        holder.imageDelete.setOnClickListener {v ->
+            api.deleteProduct(myDataset[position].id).enqueue(object : Callback<String> {
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.e(ERROR, call.toString())
+                    Toast.makeText(v.context, "Não foi possível deletar o produto!", Toast.LENGTH_SHORT)
+                        .show()
+                }
 
-        getProducts(id_store)
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    Log.d("DELETE", call.toString())
+                    Toast.makeText(v.context, "Produto deletado!", Toast.LENGTH_SHORT)
+                        .show()
+
+                    myDataset.removeAt(position)
+                    notifyDataSetChanged()
+                }
+            })
+        }
     }
 
     override fun getItemCount(): Int = myDataset.size
@@ -102,24 +116,5 @@ class ProductStoreAdapter(private var myDataset : ArrayList<Product>, private va
                 notifyDataSetChanged()
             }
         }
-    }
-
-    private fun getProducts(id_store: Int) {
-        api.listProducts(id_store).enqueue(object : Callback<List<Product>> {
-            override fun onFailure(call: Call<List<Product>>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
-                val products = ArrayList<Product>()
-
-                response.body()!!.forEach { product ->
-                    products.add(product)
-                }
-
-                myDataset = products
-                notifyDataSetChanged()
-            }
-        })
     }
 }

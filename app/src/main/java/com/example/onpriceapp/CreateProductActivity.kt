@@ -3,19 +3,17 @@ package com.example.onpriceapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
-import com.example.onpriceapp.api.APIController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.lang.Exception
-import java.security.spec.ECField
 
 class CreateProductActivity : AppCompatActivity() {
 
-    var id : Int = 0
-    var product_id : Int = 0
-    var saveButton : Button? = null
-    var array : Array<String>? = null
+    private var id : Int = 0
+    private var productId : Int = 0
+    private var saveButton : Button? = null
+    private var array : Array<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +31,7 @@ class CreateProductActivity : AppCompatActivity() {
             findViewById<EditText>(R.id.productStampField).setText(array!![5])
 
             id = array!![6].toInt()
-            product_id = array!![0].toInt()
+            productId = array!![0].toInt()
         }
 
         saveButton = findViewById(R.id.saveButton)
@@ -41,11 +39,11 @@ class CreateProductActivity : AppCompatActivity() {
             if (array.isNullOrEmpty())
                 putData(id)
             else
-                putData(id, true, product_id)
+                putData(id, true)
         }
     }
 
-    private fun putData(store_id: Int, update : Boolean = false, product_id : Int = -1)
+    private fun putData(store_id: Int, update : Boolean = false)
     {
         val name = findViewById<EditText>(R.id.productNameField).text.toString()
         val qt = findViewById<EditText>(R.id.qtField).text.toString().toInt()
@@ -92,6 +90,6 @@ class CreateProductActivity : AppCompatActivity() {
 
     private fun validate(field : String) : Boolean
     {
-        return !field.isEmpty();
+        return field.isNotEmpty();
     }
 }

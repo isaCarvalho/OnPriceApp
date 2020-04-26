@@ -62,11 +62,14 @@ class StoreLoginActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<Store>, response: Response<Store>) {
-                val store = response.body()!!
-                Log.e(ERROR, store.toString())
+                if (response.body() != null)
+                {
+                    val store = response.body()!!
+                    Log.e(ERROR, store.toString())
 
-                id = store.id
-                Log.e("ID", id.toString())
+                    id = store.id
+                    Log.e("ID", id.toString())
+                }
 
                 if (id != 0) {
                     Toast.makeText(this@StoreLoginActivity, "Usuário Logado com Sucesso!", Toast.LENGTH_SHORT).show()
