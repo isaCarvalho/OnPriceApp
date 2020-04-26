@@ -10,7 +10,7 @@ import retrofit2.Response
 
 class CreateProductActivity : AppCompatActivity() {
 
-    private var id : Int = 0
+    private var storeId : Int = 0
     private var productId : Int = 0
     private var saveButton : Button? = null
     private var array : Array<String>? = null
@@ -19,27 +19,28 @@ class CreateProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_product)
 
-        id = intent.getIntExtra(EXTRA, -1)
+        storeId = ID_STORE
         array = intent.getStringArrayExtra(EXTRA)
 
         if (!array.isNullOrEmpty())
         {
+            productId = array!![0].toInt()
+
             findViewById<EditText>(R.id.productNameField).setText(array!![1])
             findViewById<EditText>(R.id.unityField).setText(array!![2])
             findViewById<EditText>(R.id.qtField).setText(array!![3])
             findViewById<EditText>(R.id.priceField).setText(array!![4])
             findViewById<EditText>(R.id.productStampField).setText(array!![5])
 
-            id = array!![6].toInt()
-            productId = array!![0].toInt()
+            storeId = array!![6].toInt()
         }
 
         saveButton = findViewById(R.id.saveButton)
         saveButton!!.setOnClickListener {
             if (array.isNullOrEmpty())
-                putData(id)
+                putData(storeId)
             else
-                putData(id, true)
+                putData(storeId, true)
         }
     }
 
@@ -56,7 +57,7 @@ class CreateProductActivity : AppCompatActivity() {
 
             if (!update)
             {
-                val product = Product(-1, name, category, price, stamp, qt, unity, store_id)
+                val product = Product(DEFAULT_INT_VALUE, name, category, price, stamp, qt, unity, store_id)
 
                 api.insertProduct(product).enqueue(object : Callback<String> {
                     override fun onFailure(call: Call<String>, t: Throwable) {
@@ -73,9 +74,9 @@ class CreateProductActivity : AppCompatActivity() {
             }
             else
             {
-                val product = Product(id, name, category, price, stamp, qt, unity, store_id)
+                val product = Product(productId, name, category, price, stamp, qt, unity, store_id)
 
-                api.updateProduct(id, product).enqueue(object : Callback<String> {
+                api.updateProduct(productId, product).enqueue(object : Callback<String> {
                     override fun onFailure(call: Call<String>, t: Throwable) {
                         Toast.makeText(this@CreateProductActivity, "Não foi possível editar o produto!", Toast.LENGTH_SHORT)
                             .show()

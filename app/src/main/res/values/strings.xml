@@ -133,4 +133,10 @@
 
     <string name="logout">Sair</string>
 
+    <string name="noproducts2">Nenhum produto cadastrado</string>
+    <string name="noproducts">Este estabelecimento não possui produtos cadastrados</string>
+    <string name="nostore">Nenhum mercado cadastrado</string>
+
+    <string name="error">Ocorreu um erro no carregamento dos dados</string>
+
 </resources>

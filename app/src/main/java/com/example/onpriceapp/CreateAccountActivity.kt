@@ -59,7 +59,7 @@ class CreateAccountActivity : AppCompatActivity() {
 
             if (!update)
             {
-                val store = Store(-1, name, password, cnpj, street, number, bairro, city, uf, time)
+                val store = Store(DEFAULT_INT_VALUE, name, password, cnpj, street, number, bairro, city, uf, time)
 
                 api.insertStore(store).enqueue(object : Callback<String> {
                     override fun onFailure(call: Call<String>, t: Throwable) {

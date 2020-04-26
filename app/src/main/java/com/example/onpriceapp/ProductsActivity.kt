@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.widget.SearchView
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.onpriceapp.adapter.ListProductsAdapter
@@ -58,9 +59,11 @@ class ProductsActivity : AppCompatActivity() {
 
     private fun getProducts(id_store: Int)
     {
+        val textView = findViewById<TextView>(R.id.noProducts)
+
         api.listProducts(id_store).enqueue(object: Callback<List<Product>> {
             override fun onFailure(call: Call<List<Product>>, t: Throwable) {
-                TODO("Not yet implemented")
+                textView.setText(R.string.error)
             }
 
             override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
@@ -69,6 +72,9 @@ class ProductsActivity : AppCompatActivity() {
                 response.body()!!.forEach { product ->
                     products.add(product)
                 }
+
+                if (products.isEmpty())
+                    textView.setText(R.string.noproducts)
 
                 viewAdapter = ListProductsAdapter(products)
                 recyclerView.adapter = viewAdapter

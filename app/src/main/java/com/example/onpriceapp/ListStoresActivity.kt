@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.widget.SearchView
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.onpriceapp.adapter.StoreAdapter
@@ -55,9 +56,11 @@ class ListStoresActivity : AppCompatActivity() {
 
     private fun getStores()
     {
+        val textView = findViewById<TextView>(R.id.noStores)
+
         api.listStores().enqueue(object : Callback<List<Store>> {
             override fun onFailure(call: Call<List<Store>>, t: Throwable) {
-                Log.e("ERRO: ", call.toString())
+                textView.setText(R.string.error)
             }
 
             override fun onResponse(call: Call<List<Store>>, response: Response<List<Store>>) {
@@ -66,6 +69,9 @@ class ListStoresActivity : AppCompatActivity() {
                 response.body()!!.forEach { store ->
                     stores.add(store)
                 }
+
+                if (stores.isEmpty())
+                    textView.setText(R.string.nostore)
 
                 viewAdapter = StoreAdapter(stores)
                 recyclerView.adapter = viewAdapter

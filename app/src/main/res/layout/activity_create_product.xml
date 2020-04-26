@@ -51,7 +51,7 @@
             <EditText
                 android:id="@+id/priceField"
                 style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
-                android:layout_width="85dp"
+                android:layout_width="95dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"

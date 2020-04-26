@@ -14,7 +14,6 @@ interface API
     fun insertStore(@Body store: Store) : Call<String>
 
     @POST("products")
-    @FormUrlEncoded
     fun insertProduct(@Body product: Product) : Call<String>
 
     @GET("stores")
@@ -30,11 +29,9 @@ interface API
     fun getStore(@Query("id") id : Int) : Call<List<Store>>
 
     @PUT("stores")
-    @FormUrlEncoded
     fun updateStore(@Query("id") id : Int, @Body store: Store) : Call<String>
 
     @PUT("products")
-    @FormUrlEncoded
     fun updateProduct(@Query("id") id: Int, @Body product: Product) : Call<String>
 
     @DELETE("stores")

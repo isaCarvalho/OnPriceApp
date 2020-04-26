@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -118,12 +119,18 @@ class StoreProductsActivity : AppCompatActivity() {
                         Toast.makeText(this@StoreProductsActivity, "Não foi possível deletar a conta!",
                             Toast.LENGTH_SHORT).show()
 
+                        ID_STORE = 0
+                        SESSION_LOGIN = false
+
                         finish()
                     }
 
                     override fun onResponse(call: Call<String>, response: Response<String>) {
                         Toast.makeText(this@StoreProductsActivity, "Conta deletada!", Toast.LENGTH_SHORT)
                             .show()
+
+                        ID_STORE = 0
+                        SESSION_LOGIN = false
 
                         finish()
                     }
@@ -146,9 +153,11 @@ class StoreProductsActivity : AppCompatActivity() {
 
     private fun getProducts(id_store: Int)
     {
+        val textView = findViewById<TextView>(R.id.noProducts2)
+
         api.listProducts(id_store).enqueue(object: Callback<List<Product>> {
             override fun onFailure(call: Call<List<Product>>, t: Throwable) {
-                TODO("Not yet implemented")
+                textView.setText(R.string.error)
             }
 
             override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
@@ -158,7 +167,10 @@ class StoreProductsActivity : AppCompatActivity() {
                     products.add(product)
                 }
 
-                viewAdapter = ProductStoreAdapter(products, id_store)
+                if (products.isEmpty())
+                    textView.setText(R.string.noproducts2)
+
+                viewAdapter = ProductStoreAdapter(products)
                 recyclerView.adapter = viewAdapter
             }
         })

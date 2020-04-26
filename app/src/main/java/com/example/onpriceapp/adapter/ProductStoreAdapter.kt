@@ -16,7 +16,7 @@ import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ProductStoreAdapter(private var myDataset : ArrayList<Product>, private val id_store: Int) :
+class ProductStoreAdapter(private var myDataset : ArrayList<Product>) :
     RecyclerView.Adapter<ProductStoreAdapter.MyViewHolder>(), Filterable
 {
     private val listCopy = ArrayList<Product>(myDataset.toMutableList())
@@ -46,18 +46,19 @@ class ProductStoreAdapter(private var myDataset : ArrayList<Product>, private va
         holder.qtUnityTxt.text = "${myDataset[position].qt} ${myDataset[position].unit}"
 
         holder.imageEdit.setOnClickListener {v ->
+            val product = myDataset[position]
+
             val array = arrayOf(
-                myDataset[position].id.toString(),
-                myDataset[position].name,
-                myDataset[position].stamp,
-                myDataset[position].price,
-                myDataset[position].qt.toString(),
-                myDataset[position].unit,
-                id_store
+                product.id.toString(),
+                product.name,
+                product.stamp,
+                product.price,
+                product.qt.toString(),
+                product.unit,
+                product.id_store.toString()
             )
 
             val intent = Intent(v.context, CreateProductActivity::class.java).apply {
-                putExtra(EXTRA, myDataset[position].id_store)
                 putExtra(EXTRA, array)
             }
 

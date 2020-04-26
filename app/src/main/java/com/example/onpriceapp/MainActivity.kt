@@ -12,6 +12,7 @@ import com.example.onpriceapp.api.APIController
 
 const val ERROR = "Error: "
 const val EXTRA = "com.example.onpriceapp.MESSAGE"
+const val DEFAULT_INT_VALUE = -1
 
 val api = APIController.getRetrofitInstance().create(API::class.java)
 
