@@ -2,7 +2,6 @@ package com.example.onpriceapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.widget.SearchView
 import android.widget.TextView

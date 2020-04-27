@@ -71,7 +71,9 @@ class StoreProductsActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
+    override fun onResume()
+    {
+        getProducts(ID_STORE)
         super.onResume()
     }
 

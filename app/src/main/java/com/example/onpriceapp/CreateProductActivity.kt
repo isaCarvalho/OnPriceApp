@@ -27,10 +27,10 @@ class CreateProductActivity : AppCompatActivity() {
             productId = array!![0].toInt()
 
             findViewById<EditText>(R.id.productNameField).setText(array!![1])
-            findViewById<EditText>(R.id.unityField).setText(array!![2])
-            findViewById<EditText>(R.id.qtField).setText(array!![3])
-            findViewById<EditText>(R.id.priceField).setText(array!![4])
-            findViewById<EditText>(R.id.productStampField).setText(array!![5])
+            findViewById<EditText>(R.id.productStampField).setText(array!![2])
+            findViewById<EditText>(R.id.priceField).setText(array!![3])
+            findViewById<EditText>(R.id.qtField).setText(array!![4])
+            findViewById<EditText>(R.id.unityField).setText(array!![5])
 
             storeId = array!![6].toInt()
         }
@@ -67,7 +67,6 @@ class CreateProductActivity : AppCompatActivity() {
 
                     override fun onResponse(call: Call<String>, response: Response<String>) {
                         Toast.makeText(this@CreateProductActivity, "Produto criado com sucesso!", Toast.LENGTH_SHORT).show()
-
                         finish()
                     }
                 })
@@ -84,7 +83,6 @@ class CreateProductActivity : AppCompatActivity() {
 
                     override fun onResponse(call: Call<String>, response: Response<String>) {
                         Toast.makeText(this@CreateProductActivity, "Produto editado com sucesso!", Toast.LENGTH_SHORT).show()
-
                         finish()
                     }
                 })
