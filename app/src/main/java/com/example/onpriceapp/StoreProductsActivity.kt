@@ -66,6 +66,7 @@ class StoreProductsActivity : AppCompatActivity() {
         fab!!.setOnClickListener {
             val intent = Intent(this, CreateProductActivity::class.java).apply {
                 putExtra(EXTRA, ID_STORE)
+                putExtra(EXTRA, emptyArray<String>())
             }
             startActivity(intent)
         }

@@ -10,22 +10,25 @@ import android.widget.ImageView
 import com.example.onpriceapp.api.API
 import com.example.onpriceapp.api.APIController
 
-const val ERROR = "Error: "
-const val EXTRA = "com.example.onpriceapp.MESSAGE"
-const val DEFAULT_INT_VALUE = -1
+const val EXTRA = "com.example.onpriceapp.MESSAGE" // extra message tag
+const val ERROR = "Error: " // error message tag
+const val DEFAULT_INT_VALUE = -1 // default value for id
 
-val api = APIController.getRetrofitInstance().create(API::class.java)
+val api = APIController.getRetrofitInstance().create(API::class.java) // instance of retrofit
 
-var SESSION_LOGIN = false
-var ID_STORE = 0
+var SESSION_LOGIN = false // session variable
+var ID_STORE = 0 // id variable. It's used for login
 
+/**
+ * This is the main activity for onPrice.
+ */
 class MainActivity : AppCompatActivity() {
 
-    var cardStore : ImageView? = null
-    var cardProduct : ImageView? = null
-    var openButton : Button? = null
-    var createAccountButton : Button? = null
-    var loginMain : Button? = null
+    var cardStore : ImageView? = null // Store's image
+    var cardProduct : ImageView? = null // Product's image
+    var openButton : Button? = null // Button for open the stores space
+    var createAccountButton : Button? = null // Button for create an account
+    var loginMain : Button? = null // Button for login
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         createAccountButton = findViewById(R.id.createAccountButton)
         createAccountButton!!.setOnClickListener {
             val intent = Intent(this, CreateAccountActivity::class.java).apply {
-                putExtra(EXTRA, arrayOf<String>())
+                putExtra(EXTRA, emptyArray<String>())
             }
             startActivity(intent)
         }
@@ -73,7 +76,6 @@ class MainActivity : AppCompatActivity() {
         {
             R.id.main_menu_help -> {
                 startActivity(Intent(this, HelpActivity::class.java))
-
                 true
             }
 
@@ -81,6 +83,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Verifies if already there's a user logged in. If there is, opens it's dashboard.
     private fun openLogin()
     {
         if (SESSION_LOGIN)
