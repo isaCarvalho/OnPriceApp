@@ -71,6 +71,8 @@ class ListStoresActivity : AppCompatActivity() {
 
                 if (stores.isEmpty())
                     textView.setText(R.string.nostore)
+                else
+                    textView.text = null
 
                 viewAdapter = StoreAdapter(stores)
                 recyclerView.adapter = viewAdapter

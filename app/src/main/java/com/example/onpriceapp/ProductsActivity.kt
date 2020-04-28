@@ -75,6 +75,8 @@ class ProductsActivity : AppCompatActivity() {
 
                 if (products.isEmpty())
                     textView.setText(R.string.noproducts)
+                else
+                    textView.text = null
 
                 viewAdapter = ListProductsAdapter(products)
                 recyclerView.adapter = viewAdapter
